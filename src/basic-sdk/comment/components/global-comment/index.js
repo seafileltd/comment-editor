@@ -1,0 +1,213 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { withTranslation } from 'react-i18next';
+import { Input } from 'reactstrap';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import context from '../../../context';
+import { getNodeById } from '../../../extension/core';
+import { useComment } from '../../../hooks/use-comment';
+import { DOC_COMMENT_ELEMENT_ID } from '../../constants';
+import CommentEditor from '../comment-editor';
+import CommentItemCollapseWrapper from '../comment-item-collapse-wrapper';
+import CommentItemWrapper from '../comment-item-wrapper';
+import GlobalCommentBodyHeader from './global-comment-body-header';
+import GlobalCommentHeader from './global-comment-header';
+
+import './index.css';
+
+const GlobalComment = ({ editor, t }) => {
+  const contentRef = useRef(null);
+  const commentDetailRef = useRef(null);
+  const [activeCommentGroup, setActiveCommentGroup] = useState(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const [isScrollDisplayed, setIsScrollDisplayed] = useState(false);
+  const [globalCommentContent, setGlobalCommentContent] = useState(null);
+  const { api, commentList, commentType, dispatch, setCommentType, onCloseCommentPanel, deleteUnseenNotifications } = useComment();
+
+  const detectScroll = useCallback(() => {
+    if (!contentRef.current) return;
+    const contentContainer = contentRef.current;
+    const isShowScroll = contentContainer.scrollHeight > contentContainer.clientHeight;
+    setIsScrollDisplayed(isShowScroll);
+  }, []);
+
+  const onCommentsPanelBodyScroll = useCallback((position) => {
+    contentRef.current?.scrollTo({
+      top: position === 'top' ? 0 : contentRef.current?.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [contentRef]);
+
+  useEffect(() => {
+    detectScroll();
+    // When a comment is updated, update the comment details page
+    if (activeCommentGroup) {
+      const newActiveCommentGroup = commentList.find(item => item.id === activeCommentGroup.id);
+      setActiveCommentGroup(newActiveCommentGroup);
+      deleteUnseenNotifications && deleteUnseenNotifications(newActiveCommentGroup);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentList, detectScroll]);
+
+  const updateScrollPosition = useCallback(() => {
+    const resolvedDom = document.querySelector('.sdoc-resolved');
+    contentRef.current?.scrollTo({
+      top: resolvedDom.offsetTop,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  const insertDocComment = useCallback(async (commentDetail) => {
+    // Reply to a comment
+    if (activeCommentGroup && commentDetailRef.current?.insertContent) {
+      commentDetailRef.current.insertContent(commentDetail);
+    } else {
+      // Insert global comment
+      const user = context.getUserInfo();
+      const elementId = DOC_COMMENT_ELEMENT_ID;
+      const time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+      const comment = {
+        comment: commentDetail,
+        detail: {
+          element_id: elementId,
+          comment: commentDetail,
+        },
+        author: user.username,
+        updated_at: time,
+      };
+
+      const res = await api.insertComment(comment);
+      const { comment: returnComment } = res.data;
+      const newComment = {
+        ...comment,
+        id: returnComment.id,
+        user_name: returnComment.user_name,
+        avatar_url: returnComment.avatar_url,
+        replies: []
+      };
+      dispatch({ type: 'INSERT_COMMENT', payload: { element_id: elementId, comment: newComment } });
+
+      detectScroll();
+    }
+    // After the comment is inserted, scroll to the bottom
+    setTimeout(() => {
+      onCommentsPanelBodyScroll('bottom');
+    }, 500);
+  }, [activeCommentGroup, api, detectScroll, dispatch, onCommentsPanelBodyScroll]);
+
+  const hiddenCommentEditor = useCallback(() => {
+    setShowEditor(false);
+  }, []);
+
+  const isClickCommentPanelBody = useCallback((event) => {
+    if (contentRef.current && contentRef.current.contains(event.target)) return true;
+    return false;
+  }, []);
+
+  const getNodeByElementId = useCallback((elementId, ) => {
+    if (elementId !== DOC_COMMENT_ELEMENT_ID) {
+      return getNodeById(editor.children, elementId);
+    }
+    return null;
+  }, [editor.children]);
+
+  const setCurrentCommentGroup = useCallback((commentGroupId) => {
+    const activeCommentGroup = commentList.find(item => item.id === commentGroupId);
+    if (activeCommentGroup) {
+      setActiveCommentGroup(activeCommentGroup);
+      deleteUnseenNotifications && deleteUnseenNotifications(activeCommentGroup);
+    } else {
+      setActiveCommentGroup(null);
+    }
+  }, [commentList, deleteUnseenNotifications]);
+
+  const commentEditorPlaceholder = !activeCommentGroup ? t('Enter_comment_shift_enter_for_new_line_Enter_to_send') : t('Enter_reply_shift_Enter_for_new_line_Enter_to_send');
+
+  return (
+    <div className="comment-drawer">
+      <div className="comments-panel-wrapper">
+        <GlobalCommentHeader
+          toggle={onCloseCommentPanel}
+          activeCommentGroup={activeCommentGroup}
+          setCurrentCommentGroup={setCurrentCommentGroup}
+        />
+        <div className="comments-panel-body">
+          {!activeCommentGroup && (
+            <GlobalCommentBodyHeader commentList={commentList} commentType={commentType} setCommentType={setCommentType} />
+          )}
+          <div ref={contentRef} className="comments-panel-body__content">
+            <div id="global-comment-list-container" className="sdoc-comment-list-container">
+              {!activeCommentGroup && Array.isArray(commentList) && commentList.map(comment => {
+                const replyCount = comment.replies?.length;
+                const latestReply = comment.replies?.length > 0 ? comment.replies[comment.replies.length - 1] : null;
+                const elementId = comment.detail.element_id;
+                const element = getNodeByElementId(elementId);
+                return (
+                  <CommentItemCollapseWrapper
+                    key={comment.id}
+                    editor={editor}
+                    element={element}
+                    topLevelComment={comment}
+                    replyCount={replyCount}
+                    latestReply={latestReply}
+                    setCurrentCommentGroup={setCurrentCommentGroup}
+                  />
+                );
+              })}
+              {activeCommentGroup && (
+                <CommentItemWrapper
+                  key={activeCommentGroup.id}
+                  editor={editor}
+                  element={getNodeByElementId(activeCommentGroup.detail.element_id)}
+                  container="global-comment-list-container"
+                  commentDetailRef={commentDetailRef}
+                  comment={activeCommentGroup}
+                  isGlobalComment={true}
+                  isActive={true}
+                  updateScrollPosition={updateScrollPosition}
+                  isClickCommentPanelBody={isClickCommentPanelBody}
+                  setCurrentCommentGroup={setCurrentCommentGroup}
+                />
+              )}
+            </div>
+          </div>
+          <div className={classNames('global-comment-input-wrapper', { 'active': globalCommentContent?.trim() } )}>
+            {!showEditor && (
+              <Input
+                value={globalCommentContent?.trim() ? '.....' : ''}
+                readOnly={true}
+                placeholder={commentEditorPlaceholder}
+                onFocus={() => {
+                  setShowEditor(true);
+                }}
+              />
+            )}
+            {showEditor && (
+              <div className={classNames('global-comment-editor-container', 'sdoc-comment-list-container', { 'scrolled': isScrollDisplayed })}>
+                <div className="global-comment-editor-content">
+                  <CommentEditor
+                    type={activeCommentGroup ? 'replay' : 'comment'}
+                    commentContent={globalCommentContent}
+                    hiddenUserInfo={true}
+                    insertContent={insertDocComment}
+                    hiddenComment={hiddenCommentEditor}
+                    onContentChange={(content) => {
+                      setGlobalCommentContent(content);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+GlobalComment.propTypes = {
+  editor: PropTypes.object,
+};
+
+export default withTranslation('sdoc-editor')(GlobalComment);

@@ -1,0 +1,44 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+#dist
+dist
+
+#Idea
+
+/.idea
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+src/config.js
+site/setting.local.js
+
+# backup files
+*~
+
+# site
+site/setting.local.*.js
+site/setting.local.js
+site/setting.local.js.plugin
+site/setting.local.js.wiki
+site/setting.local.js.sdoc
+
+# vscode
+.vscode

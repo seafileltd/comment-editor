@@ -1,0 +1,23 @@
+{
+  "presets": [["react-app", { "absoluteRuntime": false}]],
+  "plugins": [
+    ["import", {
+      "libraryName": "dtable-ui-component",
+      "libraryDirectory": "lib",
+      "camel2DashComponentName": false,
+      "camel2UnderlineComponentName": false
+    },
+      "dtable-ui-component"
+    ],
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@": "./src"
+      }
+    }],
+    "@babel/plugin-transform-private-methods",
+    "@babel/plugin-transform-private-property-in-object",
+    "@babel/plugin-transform-class-properties",
+    "@babel/plugin-transform-export-namespace-from"
+  ]
+}
