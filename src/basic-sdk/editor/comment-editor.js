@@ -6,23 +6,25 @@ import classNames from 'classnames';
 import isHotkey from 'is-hotkey';
 import PropTypes from 'prop-types';
 import scrollIntoView from 'scroll-into-view-if-needed';
-import { COMMENT_EDITOR, COMMENT_EDITOR_EDIT_AREA_WIDTH, INTERNAL_EVENT, KeyCodes } from '../../constants';
-import context from '../../context';
-import { useCursors } from '../../cursor/use-cursors';
-import { usePipDecorate } from '../../decorates';
-import { createCommentEditor, renderLeaf } from '../../extension';
-import { PARAGRAPH, IMAGE, IMAGE_BLOCK } from '../../extension/constants';
-import { generateEmptyElement, focusEditor } from '../../extension/core';
-import RenderCommentEditorCustomRenderElement from '../../extension/render/render-comment-editor-element';
-import CommentEditorToolbar from '../../extension/toolbar/comment-editor-toolbar';
-import { useComment } from '../../hooks/use-comment';
-import { ScrollContext } from '../../hooks/use-scroll-context';
-import { EditorContainer } from '../../layout';
-import withNodeId from '../../node-id';
-import mdStringToSlate from '../../slate-convert/md-to-slate';
-import slateToMdString from '../../slate-convert/slate-to-md';
-import EventBus from '../../utils/event-bus';
-import EventProxy from '../../utils/event-handler';
+import { COMMENT_EDITOR, COMMENT_EDITOR_EDIT_AREA_WIDTH, INTERNAL_EVENT, KeyCodes } from '../constants';
+import context from '../context';
+import { useCursors } from '../cursor/use-cursors';
+import { usePipDecorate } from '../decorates';
+import { createCommentEditor, renderLeaf } from '../extension';
+import { PARAGRAPH, IMAGE, IMAGE_BLOCK } from '../extension/constants';
+import { generateEmptyElement, focusEditor } from '../extension/core';
+import RenderCommentEditorCustomRenderElement from '../extension/render/render-comment-editor-element';
+import CommentEditorToolbar from '../extension/toolbar/comment-editor-toolbar';
+import { useComment } from '../hooks/use-comment';
+import { ScrollContext } from '../hooks/use-scroll-context';
+import { EditorContainer } from '../layout';
+import withNodeId from '../node-id';
+import mdStringToSlate from '../slate-convert/md-to-slate';
+import slateToMdString from '../slate-convert/slate-to-md';
+import EventBus from '../utils/event-bus';
+import EventProxy from '../utils/event-handler';
+
+import './comment-editor.css';
 
 const getSubmitTip = (type, content) => {
   if (content) return 'Save';
@@ -101,14 +103,14 @@ const CommentEditor = ({
     onSubmit(event);
   }, [editor, onSubmit]);
 
-  useEffect(() => {
-    const eventBus = EventBus.getInstance();
-    const unsubscribePostComment = eventBus.subscribe(INTERNAL_EVENT.COMMENT_EDITOR_POST_COMMENT, onSubmitByEnterKey);
+  // useEffect(() => {
+  //   const eventBus = EventBus.getInstance();
+  //   const unsubscribePostComment = eventBus.subscribe(INTERNAL_EVENT.COMMENT_EDITOR_POST_COMMENT, onSubmitByEnterKey);
 
-    return () => {
-      unsubscribePostComment();
-    };
-  }, [onSubmitByEnterKey]);
+  //   return () => {
+  //     unsubscribePostComment();
+  //   };
+  // }, [onSubmitByEnterKey]);
 
   const onCancel = useCallback((event) => {
     event.stopPropagation();
@@ -137,34 +139,34 @@ const CommentEditor = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setIsEditing]);
 
-  useEffect(() => {
-    let children = mdStringToSlate(content);
-    if (commentContent) {
-      children = mdStringToSlate(commentContent);
-    }
-    editor.children = children;
-    Transforms.select(editor, Editor.end(editor, []));
-  }, [editor, content, commentContent]);
+  // useEffect(() => {
+  //   let children = mdStringToSlate(content);
+  //   if (commentContent) {
+  //     children = mdStringToSlate(commentContent);
+  //   }
+  //   editor.children = children;
+  //   Transforms.select(editor, Editor.end(editor, []));
+  // }, [editor, content, commentContent]);
 
-  // useMount: focus editor
-  useEffect(() => {
-    const [firstNode] = editor.children;
-    if (firstNode) {
-      const [firstNodeFirstChild] = firstNode.children;
+  // // useMount: focus editor
+  // useEffect(() => {
+  //   const [firstNode] = editor.children;
+  //   if (firstNode) {
+  //     const [firstNodeFirstChild] = firstNode.children;
 
-      if (firstNodeFirstChild) {
-        const endOfFirstNode = Editor.end(editor, [0, 0]);
-        const range = {
-          anchor: endOfFirstNode,
-          focus: endOfFirstNode,
-        };
-        focusEditor(editor, range);
-      }
-      // Force refresh to fix comment list
-      setSlateValue([...editor.children]);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //     if (firstNodeFirstChild) {
+  //       const endOfFirstNode = Editor.end(editor, [0, 0]);
+  //       const range = {
+  //         anchor: endOfFirstNode,
+  //         focus: endOfFirstNode,
+  //       };
+  //       focusEditor(editor, range);
+  //     }
+  //     // Force refresh to fix comment list
+  //     setSlateValue([...editor.children]);
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const handleFocusEditor = (e) => {
     if (e.target === commentEditorContainerRef.current) {
@@ -261,7 +263,6 @@ const CommentEditor = ({
           />
         </div>
       </EditorContainer>
-
     </div>
   );
 };

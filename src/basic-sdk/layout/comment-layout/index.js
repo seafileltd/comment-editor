@@ -13,7 +13,7 @@ const MIN_PANEL_WIDTH = 360;
 const MAX_PANEL_WIDTH = 620;
 
 const CommentLayout = ({ editor }) => {
-  const { className, pluginName } = useComment();
+  const { className, pluginName, pluginEventBus, pluginEvent } = useComment();
   const [width, setWidth] = useState(MIN_PANEL_WIDTH);
 
   const panelWrapperStyle = useMemo(() => {
@@ -40,6 +40,15 @@ const CommentLayout = ({ editor }) => {
     const eventBus = EventBus.getInstance();
     eventBus.dispatch(INTERNAL_EVENT.RESIZE_ARTICLE);
   }, []);
+
+  useEffect(() => {
+    const isShowGlobalComments = pluginName === 'sdoc' ? true : false;
+    const settings = LocalStorage.getItem(SDOC_STORAGE) || {};
+    LocalStorage.setItem(SDOC_STORAGE, { ...settings, isShowGlobalComments });
+    const eventBus = pluginEventBus.getInstance();
+    eventBus.dispatch(pluginEvent.RESIZE_ARTICLE);
+  }, [pluginEvent.RESIZE_ARTICLE, pluginEventBus, pluginName]);
+
 
   useEffect(() => {
     const settings = LocalStorage.getItem(SDOC_STORAGE) || {};

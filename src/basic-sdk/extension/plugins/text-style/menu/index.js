@@ -2,8 +2,7 @@ import React, { Fragment, useCallback } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Editor } from '@seafile/slate';
 import PropTypes from 'prop-types';
-import CommentContextMenu from '../../../../comment/components/comment-context-menu';
-import { DOCUMENT_PLUGIN_EDITOR, INTERNAL_EVENT, WIKI_EDITOR } from '../../../../constants';
+import { INTERNAL_EVENT } from '../../../../constants';
 import context from '../../../../context';
 import { useColorContext } from '../../../../hooks/use-color-context';
 import EventBus from '../../../../utils/event-bus';
@@ -144,7 +143,6 @@ const TextStyleMenuList = ({ editor, t, isRichEditor, className, idPrefix, reado
           <i className="sdocfont sdoc-reduce-font-size"></i>
         </FontSizeScale>
       </MoreDropdown>
-      {idPrefix && ![DOCUMENT_PLUGIN_EDITOR, WIKI_EDITOR].includes(editor.editorType) && <CommentContextMenu />}
       {idPrefix && enableSeafileAI && <AIContextMenu isRichEditor={isRichEditor} />}
     </>
   );

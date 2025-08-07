@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // import { SeafileCommentEditor } from '@seafile/comment-editor';
-import { SeafileCommentEditor, EXTERNAL_EVENT, EventBus, createCommentEditor, withNodeId } from '../src/index';
+import { SeafileCommentEditor } from '../src/index';
 import Loading from './commons/loading';
 import context from './context';
 import Home from './pages/home';
@@ -20,18 +20,17 @@ class App extends React.Component {
     await context.initApi();
     this.setState({ isLoading: false });
 
-
-    const newEditor = withNodeId(createCommentEditor());
-    newEditor.cursors = {};
-    newEditor.width = 672;
-
     this.commentEditorProps = {
-      editor: newEditor,
       pluginName: 'sdoc',
       className: 'custom-editor-wrapper',
-      onCloseCommentPanel: () => {
-        this.setState({ displayComment: false });
-      },
+
+      type: 'comment',
+      commentContent: '',
+      hiddenUserInfo: true,
+      insertContent: () => {},
+      hiddenComment: () => {},
+      onContentChange: () => {},
+
       api: {
         // comment
         updateComment: context.updateComment,
@@ -39,6 +38,8 @@ class App extends React.Component {
         listComments: context.listComments,
         insertComment: context.insertComment,
         insertReply: context.insertReply,
+        deleteReply: context.deleteReply,
+        updateReply: context.updateReply,
 
         // notifications
         readAllNotifications: context.readAllNotifications,

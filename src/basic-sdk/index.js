@@ -5,14 +5,13 @@ import toaster from './components/toast';
 import Tooltip from './components/tooltip';
 import { INTERNAL_EVENT, FULL_WIDTH_MODE } from './constants';
 import context from './context';
+import CommentEditor from './editor/comment-editor';
 import { createDefaultEditor, createCommentEditor } from './extension';
 import DropdownMenuItem from './extension/commons/dropdown-menu-item';
 import MenuShortcutPrompt from './extension/commons/menu-shortcut-indicator';
 import { CommentProvider, useComment } from './hooks/use-comment';
-import CommentLayout from './layout/comment-layout';
 import withNodeId from './node-id';
 import { mdStringToSlate, slateToMdString, deserializeHtml, processor } from './slate-convert';
-import { withSocketIO } from './socket';
 import { isMac, isMobile } from './utils/common-utils';
 import EventBus from './utils/event-bus';
 import LocalStorage from './utils/local-storage-utils';
@@ -25,7 +24,7 @@ export {
   useComment,
   createDefaultEditor,
   createCommentEditor,
-  CommentLayout,
+  CommentEditor,
 
   // component
   Loading,
@@ -51,5 +50,4 @@ export {
   getRebase,
   FULL_WIDTH_MODE,
   withNodeId,
-  withSocketIO,
 };

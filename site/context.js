@@ -163,6 +163,18 @@ class Context {
     return this.api.req.post(url, reply, { headers: { Authorization: `Token ${accessToken}` } });
   };
 
+  deleteReply = (commentId, replyId) => {
+    const { server, docUuid, accessToken } = this.sdocServerApi;
+    const url = `${server}/api/v1/docs/${docUuid}/comment/${commentId}/replies/${replyId}/`;
+    return this.api.req.delete(url, { headers: { Authorization: `Token ${accessToken}` } });
+  };
+
+  updateReply = (commentId, replyId, reply) => {
+    const { server, docUuid, accessToken } = this.sdocServerApi;
+    const url = `${server}/api/v1/docs/${docUuid}/comment/${commentId}/replies/${replyId}/`;
+    return this.api.req.put(url, reply, { headers: { Authorization: `Token ${accessToken}` } });
+  };
+
   // participants
   listParticipants = () => {
     const { docUuid } = this.settings;
