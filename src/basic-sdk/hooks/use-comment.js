@@ -1,29 +1,29 @@
-import React, { useContext, useEffect, useState, useReducer, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useState } from 'react';
+
+import '../assets/css/layout.css';
+import '../assets/css/default.css';
+import '../assets/css/sdoc-editor-article.css';
+import '../assets/css/sdoc-editor-plugins.css';
+import '../assets/css/sdoc-comment-editor-plugin.css';
+import '../assets/css/dropdown-menu.css';
 
 const CommentContext = React.createContext(null);
 
 export const CommentProvider = ({
   children,
-  pluginName = '',
+  type, // comment or replay
+  userInfo,
   className = '',
+  pluginName = '', // sdoc or wiki or txt ...
   pluginEventBus,
   pluginEvent,
-  api,
 }) => {
-  const { t } = useTranslation('sdoc-editor');
   const [collaborators, setCollaborators] = useState([]);
-
-  // Mount
-  useEffect(() => {
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <CommentContext.Provider value={{
-      pluginName, className,
-      api, pluginEventBus, pluginEvent,
+      type, userInfo, className,
+      pluginName, pluginEventBus, pluginEvent,
       collaborators,
     }}>
       {children}

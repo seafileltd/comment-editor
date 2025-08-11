@@ -27,7 +27,7 @@ const useCopyImage = ({ editor, element }) => {
         if (response.ok) {
           const blob = await response.blob();
           const file = new File([blob], 'downloaded_image.png', { type: blob.type });
-          const imageUrl = await context.uploadLocalImage([file]);
+          const imageUrl = await context.api.uploadLocalImage([file]);
           if (imageUrl && imageUrl[0]) {
             updateImageNode(editor, element, imageUrl[0]);
           }

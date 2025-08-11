@@ -12,7 +12,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      displayComment: true,
     };
   }
 
@@ -30,35 +29,12 @@ class App extends React.Component {
       insertContent: () => {},
       hiddenComment: () => {},
       onContentChange: () => {},
-
-      api: {
-        // comment
-        updateComment: context.updateComment,
-        deleteComment: context.deleteComment,
-        listComments: context.listComments,
-        insertComment: context.insertComment,
-        insertReply: context.insertReply,
-        deleteReply: context.deleteReply,
-        updateReply: context.updateReply,
-
-        // notifications
-        readAllNotifications: context.readAllNotifications,
-        listUnseenNotifications: context.listUnseenNotifications,
-        deleteUnseenNotifications: context.deleteUnseenNotifications,
-
-        // participants
-        listParticipants: context.listParticipants,
-        addParticipants: context.addParticipants,
-        deleteParticipants: context.deleteParticipants,
-
-        // collaborators
-        listRelatedUsers: context.listRelatedUsers
-      }
+      api: {}
     };
   }
 
   render() {
-    const { isLoading, displayComment } = this.state;
+    const { isLoading } = this.state;
     if (isLoading) return <Loading />;
 
     return (
@@ -66,13 +42,10 @@ class App extends React.Component {
         <Route path='/' element={<Home />}/>
         <Route path='/sdoc-editor' element={(
           <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-            <div style={{ background: '#f5f5f5', width: '100%', display: 'flex', justifyContent: 'end' }}>
-              <i className='sdocfont sdoc-comments' style={{ marginRight: '20px' }} onClick={() => {
-                this.setState({ displayComment: true });
-              }}>
-              </i>
+            <div style={{ background: '#f5f5f5', width: '70%' }}></div>
+            <div style={{ marginTop: '16px', padding: '0 16px', flex: 1 }}>
+              <SeafileCommentEditor {...this.commentEditorProps} />
             </div>
-            {displayComment && <SeafileCommentEditor {...this.commentEditorProps} />}
           </div>
         )}/>
       </Routes>

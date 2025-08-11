@@ -7,17 +7,16 @@ import isHotkey from 'is-hotkey';
 import PropTypes from 'prop-types';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { COMMENT_EDITOR, COMMENT_EDITOR_EDIT_AREA_WIDTH, INTERNAL_EVENT, KeyCodes } from '../constants';
-import context from '../context';
 import { useCursors } from '../cursor/use-cursors';
 import { usePipDecorate } from '../decorates';
 import { createCommentEditor, renderLeaf } from '../extension';
+import InsertElementDialog from '../extension/commons/insert-element-dialog';
 import { PARAGRAPH, IMAGE, IMAGE_BLOCK } from '../extension/constants';
 import { generateEmptyElement, focusEditor } from '../extension/core';
 import RenderCommentEditorCustomRenderElement from '../extension/render/render-comment-editor-element';
 import CommentEditorToolbar from '../extension/toolbar/comment-editor-toolbar';
 import { useComment } from '../hooks/use-comment';
 import { ScrollContext } from '../hooks/use-scroll-context';
-import { EditorContainer } from '../layout';
 import withNodeId from '../node-id';
 import mdStringToSlate from '../slate-convert/md-to-slate';
 import slateToMdString from '../slate-convert/slate-to-md';
@@ -34,25 +33,22 @@ const getSubmitTip = (type, content) => {
 const DEFAULT_PLACEHOLDER = 'Enter_comment_shift_enter_for_new_line_Enter_to_send';
 
 const CommentEditor = ({
-  type,
-  className,
   content,
-  commentContent,
   placeholder = DEFAULT_PLACEHOLDER,
+
   insertContent,
-  updateContent,
-  setIsEditing,
+  onContentChange,
+
   hiddenComment,
   hiddenUserInfo,
-  onContentChange,
-  isContextComment,
-  closeComment
+  closePanel,
+
+  addParticipants,
 }) => {
   const commentWrapperRef = useRef();
   const { t } = useTranslation('sdoc-editor');
-  const { addParticipants } = useComment();
+  const { className, userInfo, type } = useComment();
   const submitTip = useMemo(() => getSubmitTip(type, content), [content, type]);
-  const userInfo = context.getUserInfo();
 
   const document = useMemo(() => {
     const cursor = {};
@@ -81,36 +77,35 @@ const CommentEditor = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const eventProxy = useMemo(() => new EventProxy(editor), []);
 
-  const updateValue = useCallback((value) => {
-    if (!value || value.trim() === '') return;
-    if (!content) return insertContent(value);
-    updateContent && updateContent(value);
-  }, [content, insertContent, updateContent]);
-
   const onSubmit = useCallback((event) => {
     event && event.stopPropagation();
+
     const mdString = slateToMdString(editor.children);
-    updateValue(mdString);
+    if (mdString && mdString.trim()) insertContent(mdString);
+
     addParticipants(userInfo.username);
+
     editor.children = [generateEmptyElement(PARAGRAPH, { placeholder })];
     Transforms.select(editor, Editor.start(editor, []));
+
     onContentChange && onContentChange(null);
-    closeComment && closeComment();
-  }, [editor, updateValue, addParticipants, userInfo.username, placeholder, onContentChange, closeComment]);
+    closePanel && closePanel();
+  }, [editor, insertContent, addParticipants, userInfo.username, placeholder, onContentChange, closePanel]);
 
   const onSubmitByEnterKey = useCallback((event) => {
     if (!ReactEditor.isFocused(editor)) return;
     onSubmit(event);
   }, [editor, onSubmit]);
 
-  // useEffect(() => {
-  //   const eventBus = EventBus.getInstance();
-  //   const unsubscribePostComment = eventBus.subscribe(INTERNAL_EVENT.COMMENT_EDITOR_POST_COMMENT, onSubmitByEnterKey);
+  // addEventListener
+  useEffect(() => {
+    const eventBus = EventBus.getInstance();
+    const unsubscribePostComment = eventBus.subscribe(INTERNAL_EVENT.COMMENT_EDITOR_POST_COMMENT, onSubmitByEnterKey);
 
-  //   return () => {
-  //     unsubscribePostComment();
-  //   };
-  // }, [onSubmitByEnterKey]);
+    return () => {
+      unsubscribePostComment();
+    };
+  }, [onSubmitByEnterKey]);
 
   const onCancel = useCallback((event) => {
     event.stopPropagation();
@@ -126,8 +121,7 @@ const CommentEditor = ({
       const isPreventCancel = isClickOnListContainer || isClickOnCommentEditorContainer || isClickResizeContainer || isSdocContentWrapper;
       if (isPreventCancel) return;
     }
-    setIsEditing && setIsEditing(false);
-    hiddenComment && hiddenComment(false);
+    hiddenComment(false);
 
     if (onContentChange) {
       if (editor.children.find(n => Node.string(n).trim())) {
@@ -137,36 +131,34 @@ const CommentEditor = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setIsEditing]);
+  }, []);
 
-  // useEffect(() => {
-  //   let children = mdStringToSlate(content);
-  //   if (commentContent) {
-  //     children = mdStringToSlate(commentContent);
-  //   }
-  //   editor.children = children;
-  //   Transforms.select(editor, Editor.end(editor, []));
-  // }, [editor, content, commentContent]);
+  // set editor children
+  useEffect(() => {
+    let children = mdStringToSlate(content);
+    editor.children = children;
+    Transforms.select(editor, Editor.end(editor, []));
+  }, [editor, content]);
 
-  // // useMount: focus editor
-  // useEffect(() => {
-  //   const [firstNode] = editor.children;
-  //   if (firstNode) {
-  //     const [firstNodeFirstChild] = firstNode.children;
+  // useMount: focus editor
+  useEffect(() => {
+    const [firstNode] = editor.children;
+    if (firstNode) {
+      const [firstNodeFirstChild] = firstNode.children;
 
-  //     if (firstNodeFirstChild) {
-  //       const endOfFirstNode = Editor.end(editor, [0, 0]);
-  //       const range = {
-  //         anchor: endOfFirstNode,
-  //         focus: endOfFirstNode,
-  //       };
-  //       focusEditor(editor, range);
-  //     }
-  //     // Force refresh to fix comment list
-  //     setSlateValue([...editor.children]);
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+      if (firstNodeFirstChild) {
+        const endOfFirstNode = Editor.end(editor, [0, 0]);
+        const range = {
+          anchor: endOfFirstNode,
+          focus: endOfFirstNode,
+        };
+        focusEditor(editor, range);
+      }
+      // Force refresh to fix comment list
+      setSlateValue([...editor.children]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleFocusEditor = (e) => {
     if (e.target === commentEditorContainerRef.current) {
@@ -231,7 +223,7 @@ const CommentEditor = ({
           <div className="comment-editor-user-name">{userInfo.name}</div>
         </div>
       )}
-      <EditorContainer>
+      <div className='comment-editor-container'>
         <div className="comment-editor-content">
           <div ref={commentEditorContainerRef} className='article comment-editor' onClick={handleFocusEditor} >
             <ScrollContext.Provider value={{ scrollRef: commentEditorContainerRef }}>
@@ -262,20 +254,24 @@ const CommentEditor = ({
             onCancel={onCancel}
           />
         </div>
-      </EditorContainer>
+      </div>
+      <InsertElementDialog editor={editor} />
     </div>
   );
 };
 
 CommentEditor.propTypes = {
-  comment: PropTypes.object,
+  content: PropTypes.any,
   placeholder: PropTypes.string,
-  globalComment: PropTypes.bool,
-  hiddenUserInfo: PropTypes.bool,
-  hiddenComment: PropTypes.func,
-  insertComment: PropTypes.func,
-  updateComment: PropTypes.func,
+
+  insertContent: PropTypes.func,
   onContentChange: PropTypes.func,
+
+  hiddenComment: PropTypes.func,
+  hiddenUserInfo: PropTypes.bool,
+  closePanel: PropTypes.func,
+
+  addParticipants: PropTypes.func,
 };
 
 export default CommentEditor;

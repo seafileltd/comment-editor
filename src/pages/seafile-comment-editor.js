@@ -5,39 +5,49 @@ import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
 import ErrorBoundary from '../components/error-boundary';
 
 const SeafileCommentEditor = ({
-  pluginName = '',
+  // Provider
+  type, // comment or replay
+  userInfo,
   className = '',
-
-  type,
-  commentContent,
-  hiddenUserInfo,
-  insertContent,
-  hiddenComment,
-  onContentChange,
-
+  pluginName = '', // sdoc or wiki or txt ...
   pluginEventBus,
   pluginEvent,
+
+  // Comment editor
+  content,
+  insertContent,
+  onContentChange,
+
+  hiddenUserInfo,
+  hiddenComment,
+  closePanel,
+  addParticipants,
+
+  // api
   api,
 }) => {
-  context.init();
+  context.init(api);
 
 
   return (
     <ErrorBoundary>
       <CommentProvider
-        pluginName={pluginName}
+        type={type}
+        userInfo={userInfo}
         className={className}
+        pluginName={pluginName}
         pluginEventBus={pluginEventBus}
         pluginEvent={pluginEvent}
-        api={api}
       >
         <CommentEditor
-          type={type}
-          commentContent={commentContent}
-          hiddenUserInfo={hiddenUserInfo}
+          content={content}
           insertContent={insertContent}
-          hiddenComment={hiddenComment}
           onContentChange={onContentChange}
+
+          hiddenUserInfo={hiddenUserInfo}
+          hiddenComment={hiddenComment}
+          closePanel={closePanel}
+          addParticipants={addParticipants}
         />
       </CommentProvider>
     </ErrorBoundary>

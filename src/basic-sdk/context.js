@@ -26,8 +26,9 @@ class Context {
     }
   };
 
-  init() {
+  init(api) {
     this.initSettings(); // lazy init context class
+    this.api = api;
     // const server = this.getSetting('serviceUrl');
     // const token = this.getSetting('accessToken');
     // this.api = new SeafileAPI(server, token);

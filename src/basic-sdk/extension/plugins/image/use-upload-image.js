@@ -24,7 +24,7 @@ const useUploadImage = ({ editor, element }) => {
     const uploadCurrentImage = async () => {
       try {
         const fileItem = ImageCache.getImage(file_uuid);
-        const imageUrl = await context.uploadLocalImage([fileItem]);
+        const imageUrl = await context.api.uploadLocalImage([fileItem]);
         if (imageUrl && imageUrl[0]) {
           updateImageNode(editor, element, imageUrl[0]);
         }

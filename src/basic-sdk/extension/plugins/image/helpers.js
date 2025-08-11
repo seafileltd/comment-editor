@@ -250,7 +250,7 @@ export const handleBase64Image = (editor, path, imgData) => {
   const unit8Array = base64ToUnit8Array(imgData.src);
   const blob = new Blob([unit8Array.u8arr], { type: unit8Array.mime });
   const file = new File([blob], `${slugId.nice()}.jpg`, { type: unit8Array.mime });
-  context.uploadLocalImage([file]).then((res) => {
+  context.api.uploadLocalImage([file]).then((res) => {
     const _data = { ...imgData, src: res[0] };
     Transforms.setNodes(editor, { data: _data }, { at: path });
   });
