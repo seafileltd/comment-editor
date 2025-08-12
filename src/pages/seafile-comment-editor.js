@@ -7,7 +7,6 @@ import ErrorBoundary from '../components/error-boundary';
 const SeafileCommentEditor = ({
   // Provider
   type, // comment or replay
-  userInfo,
   className = '',
   pluginName = '', // sdoc or wiki or txt ...
   pluginEventBus,
@@ -38,7 +37,6 @@ const SeafileCommentEditor = ({
     <ErrorBoundary>
       <CommentProvider
         type={type}
-        userInfo={userInfo}
         className={className}
         pluginName={pluginName}
         pluginEventBus={pluginEventBus}
