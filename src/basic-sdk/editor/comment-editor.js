@@ -41,13 +41,12 @@ const CommentEditor = ({
 
   hiddenComment,
   hiddenUserInfo,
+  hiddenToolMenu,
   closePanel,
-
-  addParticipants,
 }) => {
   const commentWrapperRef = useRef();
   const { t } = useTranslation('sdoc-editor');
-  const { className, userInfo, type } = useComment();
+  const { className, userInfo, type, addParticipants } = useComment();
   const submitTip = useMemo(() => getSubmitTip(type, content), [content, type]);
 
   const document = useMemo(() => {
@@ -83,14 +82,15 @@ const CommentEditor = ({
     const mdString = slateToMdString(editor.children);
     if (mdString && mdString.trim()) insertContent(mdString);
 
-    addParticipants(userInfo.username);
+    addParticipants && addParticipants(userInfo.username);
 
     editor.children = [generateEmptyElement(PARAGRAPH, { placeholder })];
     Transforms.select(editor, Editor.start(editor, []));
 
     onContentChange && onContentChange(null);
     closePanel && closePanel();
-  }, [editor, insertContent, addParticipants, userInfo.username, placeholder, onContentChange, closePanel]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor, insertContent, addParticipants, placeholder, onContentChange, closePanel]);
 
   const onSubmitByEnterKey = useCallback((event) => {
     if (!ReactEditor.isFocused(editor)) return;
@@ -121,7 +121,7 @@ const CommentEditor = ({
       const isPreventCancel = isClickOnListContainer || isClickOnCommentEditorContainer || isClickResizeContainer || isSdocContentWrapper;
       if (isPreventCancel) return;
     }
-    hiddenComment(false);
+    hiddenComment && hiddenComment(false);
 
     if (onContentChange) {
       if (editor.children.find(n => Node.string(n).trim())) {
@@ -249,13 +249,14 @@ const CommentEditor = ({
           </div>
           <CommentEditorToolbar
             editor={editor}
+            hiddenToolMenu={hiddenToolMenu}
             onSubmit={onSubmit}
             submitBtnText={t(submitTip)}
             onCancel={onCancel}
           />
         </div>
       </div>
-      <InsertElementDialog editor={editor} />
+      {!hiddenToolMenu && <InsertElementDialog editor={editor} />}
     </div>
   );
 };
@@ -270,8 +271,6 @@ CommentEditor.propTypes = {
   hiddenComment: PropTypes.func,
   hiddenUserInfo: PropTypes.bool,
   closePanel: PropTypes.func,
-
-  addParticipants: PropTypes.func,
 };
 
 export default CommentEditor;

@@ -1,4 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext } from 'react';
+import context from '../context';
+import { User } from '../model';
 
 import '../assets/css/layout.css';
 import '../assets/css/default.css';
@@ -12,19 +14,30 @@ const CommentContext = React.createContext(null);
 export const CommentProvider = ({
   children,
   type, // comment or replay
-  userInfo,
   className = '',
   pluginName = '', // sdoc or wiki or txt ...
   pluginEventBus,
   pluginEvent,
+  collaborators = [],
+  participants = [],
+  addParticipants
 }) => {
-  const [collaborators, setCollaborators] = useState([]);
+
+  const getCollaborators = useCallback(() => {
+    const newCollaborators = collaborators.map((user) => new User(user));
+    return newCollaborators;
+  }, [collaborators]);
+
+  const getParticipants = useCallback(() => {
+    const newParticipants = participants.map((user) => new User(user));
+    return newParticipants;
+  }, [participants]);
 
   return (
     <CommentContext.Provider value={{
-      type, userInfo, className,
+      type, userInfo: context.getUserInfo(), className,
       pluginName, pluginEventBus, pluginEvent,
-      collaborators,
+      collaborators: getCollaborators(), participants: getParticipants(), addParticipants,
     }}>
       {children}
     </CommentContext.Provider>

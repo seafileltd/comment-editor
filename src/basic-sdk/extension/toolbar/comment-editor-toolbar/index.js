@@ -11,19 +11,21 @@ import ListMenu from '../../plugins/list/menu';
 import CommentEditorTextStyleMenuList from '../../plugins/text-style/menu/comemnt-editor-menu';
 import PostCommentBtn from './post-comment';
 
-const CommentEditorToolbar = ({ editor, readonly = false, onSubmit, submitBtnText, onCancel }) => {
+const CommentEditorToolbar = ({ editor, readonly = false, onSubmit, submitBtnText, onCancel, hiddenToolMenu }) => {
   useSelectionUpdate();
   const eventBus = EventBus.getInstance();
   return (
-    <div className='comment-editor-toolbar'>
-      <MenuGroup className="menu-group comment-editor-menu-group">
-        <CommentEditorTextStyleMenuList editor={editor} readonly={readonly} />
-        <QuoteMenu editor={editor} readonly={readonly} />
-        <ListMenu editor={editor} type={UNORDERED_LIST} readonly={readonly}/>
-        <ListMenu editor={editor} type={ORDERED_LIST} readonly={readonly} />
-        <LinkMenu editor={editor} readonly={readonly} eventBus={eventBus} />
-        <ImageMenu editor={editor} readonly={readonly} eventBus={eventBus} />
-      </MenuGroup>
+    <div className='comment-editor-toolbar' style={{ justifyContent: hiddenToolMenu ? 'end' : '' }}>
+      {!hiddenToolMenu && (
+        <MenuGroup className="menu-group comment-editor-menu-group">
+          <CommentEditorTextStyleMenuList editor={editor} readonly={readonly} />
+          <QuoteMenu editor={editor} readonly={readonly} />
+          <ListMenu editor={editor} type={UNORDERED_LIST} readonly={readonly}/>
+          <ListMenu editor={editor} type={ORDERED_LIST} readonly={readonly} />
+          <LinkMenu editor={editor} readonly={readonly} eventBus={eventBus} />
+          <ImageMenu editor={editor} readonly={readonly} eventBus={eventBus} />
+        </MenuGroup>
+      )}
       <div className='comment-editor-toolbar-right'>
         <PostCommentBtn editor={editor} onSubmit={onSubmit} submitBtnText={submitBtnText} onCancel={onCancel} />
       </div>

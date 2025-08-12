@@ -11,31 +11,16 @@ class Context {
     this.config = null;
   }
 
-  initSettings = () => {
-    this.settings = window.seafile ? window.seafile : window.seafileConfig;
-    const { name, username, avatarURL } = this.settings;
+  initSettings = (settings) => {
+    this.settings = settings ? settings : (window.seafile ? window.seafile : window.seafileConfig);
+    const { name = '', username = '', avatarURL = '' } = this.settings;
     const userInfo = { name, username, avatar_url: avatarURL };
     this.user = userInfo;
-
-    if (this.settings['isSdocRevision']) {
-      const repoID = this.getSetting('repoID');
-      const siteRoot = this.getSetting('siteRoot');
-      const originFilePath = this.getSetting('originFilePath');
-      const originFileURL = `${siteRoot}lib/${repoID}/file${originFilePath}`;
-      this.settings['originFileURL'] = originFileURL;
-    }
   };
 
-  init(api) {
-    this.initSettings(); // lazy init context class
+  init(settings, api) {
+    this.initSettings(settings);
     this.api = api;
-    // const server = this.getSetting('serviceUrl');
-    // const token = this.getSetting('accessToken');
-    // this.api = new SeafileAPI(server, token);
-    // const isOpenSocket = this.getSetting('isOpenSocket');
-    // if (isOpenSocket) {
-    //   this.sdocServerApi = new SDocServerApi(this.settings);
-    // }
   }
 
   getSettings() {

@@ -20,13 +20,18 @@ const SeafileCommentEditor = ({
 
   hiddenUserInfo,
   hiddenComment,
+  hiddenToolMenu,
   closePanel,
+
+  collaborators,
+  participants,
   addParticipants,
 
-  // api
+  // settings
+  settings,
   api,
 }) => {
-  context.init(api);
+  context.init(settings, api);
 
 
   return (
@@ -38,6 +43,9 @@ const SeafileCommentEditor = ({
         pluginName={pluginName}
         pluginEventBus={pluginEventBus}
         pluginEvent={pluginEvent}
+        collaborators={collaborators}
+        participants={participants}
+        addParticipants={addParticipants}
       >
         <CommentEditor
           content={content}
@@ -46,6 +54,7 @@ const SeafileCommentEditor = ({
 
           hiddenUserInfo={hiddenUserInfo}
           hiddenComment={hiddenComment}
+          hiddenToolMenu={hiddenToolMenu}
           closePanel={closePanel}
           addParticipants={addParticipants}
         />
