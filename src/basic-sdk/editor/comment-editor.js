@@ -46,7 +46,7 @@ const CommentEditor = ({
 }) => {
   const commentWrapperRef = useRef();
   const { t } = useTranslation('sdoc-editor');
-  const { className, userInfo, type, addParticipants } = useComment();
+  const { className, userInfo, type } = useComment();
   const submitTip = useMemo(() => getSubmitTip(type, content), [content, type]);
 
   const document = useMemo(() => {
@@ -82,15 +82,13 @@ const CommentEditor = ({
     const mdString = slateToMdString(editor.children);
     if (mdString && mdString.trim()) insertContent(mdString);
 
-    addParticipants && addParticipants(userInfo.username);
-
     editor.children = [generateEmptyElement(PARAGRAPH, { placeholder })];
     Transforms.select(editor, Editor.start(editor, []));
 
     onContentChange && onContentChange(null);
     closePanel && closePanel();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor, insertContent, addParticipants, placeholder, onContentChange, closePanel]);
+  }, [editor, insertContent, placeholder, onContentChange, closePanel]);
 
   const onSubmitByEnterKey = useCallback((event) => {
     if (!ReactEditor.isFocused(editor)) return;

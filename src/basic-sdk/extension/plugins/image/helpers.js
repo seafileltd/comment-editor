@@ -256,7 +256,8 @@ export const handleBase64Image = (editor, path, imgData) => {
   });
 };
 
-export const isImageUrlIsFromCopy = (url) => {
+export const isImageUrlIsFromCopy = (url, uploadFromDtable) => {
+  if (uploadFromDtable) return false;
   if (url && url.startsWith('http')) return true;
   if (url && url.startsWith('attachment')) return true; // from yuque
   return false;
