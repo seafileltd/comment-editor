@@ -1,6 +1,6 @@
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import Tooltip from '../../../../components/tooltip';
@@ -55,7 +55,8 @@ const LangList = React.forwardRef(({ langsData, onSelectLang, selectedLanguageTe
   );
 });
 
-const CodeBlockHoverMenu = ({ style, language, menuPosition, onChangeLanguage, onChangeAutoLineWrap, onCopyCodeBlock, onDeleteCodeBlock, t }) => {
+const CodeBlockHoverMenu = ({ style, language, menuPosition, onChangeLanguage, onChangeAutoLineWrap, onCopyCodeBlock, onDeleteCodeBlock }) => {
+  const { t } = useTranslation('sdoc-editor');
   const { white_space = 'nowrap' } = style;
   const [isShowlangsList, setIsShowlangsList] = useState(false);
   const [selectedLanguageText, setSelectedLanguageText] = useState('');
@@ -237,4 +238,4 @@ const CodeBlockHoverMenu = ({ style, language, menuPosition, onChangeLanguage, o
 
 CodeBlockHoverMenu.propTypes = propTypes;
 
-export default withTranslation('sdoc-editor')(CodeBlockHoverMenu);
+export default CodeBlockHoverMenu;

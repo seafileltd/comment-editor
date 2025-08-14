@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Transforms, Editor } from '@seafile/slate';
 import { ReactEditor, useSelected, useReadOnly } from '@seafile/slate-react';
 import classNames from 'classnames';
@@ -16,7 +16,8 @@ import ImageLoader from './image-loader';
 import useCopyImage from './use-copy-image';
 import useUploadImage from './use-upload-image';
 
-const Image = ({ element, editor, style, className, attributes, children, isSelected, t }) => {
+const Image = ({ element, editor, style, className, attributes, children, isSelected }) => {
+  const { t } = useTranslation('sdoc-editor');
   const { data, border_type = IMAGE_BORDER_TYPE[0].type } = element;
   const { show_caption = false, column_key } = data;
   const path = ReactEditor.findPath(editor, element);
@@ -321,7 +322,7 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
   );
 };
 
-const SdocImage = withTranslation('sdoc-editor')(Image);
+const SdocImage = Image;
 
 export function renderImage(props, editor) {
   // eslint-disable-next-line react-hooks/rules-of-hooks

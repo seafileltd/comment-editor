@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { ChromePicker } from 'react-color';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { UncontrolledPopover } from 'reactstrap';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -20,7 +20,6 @@ const ColorMenu = ({
   id,
   popoverClassName,
   disabled,
-  t,
   setColor,
   recentUsedColorsKey,
   text,
@@ -29,6 +28,7 @@ const ColorMenu = ({
   lastUsedColor,
   updateLastUsedColor,
 }) => {
+  const { t } = useTranslation('sdoc-editor');
   const popoverRef = useRef(null);
   const moreColorsPopoverRef = useRef(null);
 
@@ -228,4 +228,4 @@ ColorMenu.propTypes = {
   setColor: PropTypes.func.isRequired,
 };
 
-export default withTranslation('sdoc-editor')(ColorMenu);
+export default ColorMenu;

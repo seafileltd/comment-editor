@@ -11,7 +11,7 @@ import { useCursors } from '../cursor/use-cursors';
 import { usePipDecorate } from '../decorates';
 import { createCommentEditor, renderLeaf } from '../extension';
 import InsertElementDialog from '../extension/commons/insert-element-dialog';
-import { PARAGRAPH, IMAGE, IMAGE_BLOCK } from '../extension/constants';
+import { PARAGRAPH, IMAGE, IMAGE_BLOCK, UNORDERED_LIST, ORDERED_LIST, LINK, BLOCKQUOTE } from '../extension/constants';
 import { generateEmptyElement, focusEditor } from '../extension/core';
 import RenderCommentEditorCustomRenderElement from '../extension/render/render-comment-editor-element';
 import CommentEditorToolbar from '../extension/toolbar/comment-editor-toolbar';
@@ -35,13 +35,13 @@ const DEFAULT_PLACEHOLDER = 'Enter_comment_shift_enter_for_new_line_Enter_to_sen
 const CommentEditor = ({
   content,
   placeholder = DEFAULT_PLACEHOLDER,
+  toolMenus = ['text_style', BLOCKQUOTE, UNORDERED_LIST, ORDERED_LIST, LINK, IMAGE],
 
   insertContent,
   onContentChange,
 
   hiddenComment,
   hiddenUserInfo,
-  hiddenToolMenu,
   closePanel,
 }) => {
   const commentWrapperRef = useRef();
@@ -249,14 +249,14 @@ const CommentEditor = ({
           </div>
           <CommentEditorToolbar
             editor={editor}
-            hiddenToolMenu={hiddenToolMenu}
+            toolMenus={toolMenus}
             onSubmit={onSubmit}
             submitBtnText={t(submitTip)}
             onCancel={onCancel}
           />
         </div>
       </div>
-      {!hiddenToolMenu && <InsertElementDialog editor={editor} />}
+      {toolMenus.includes(IMAGE) && <InsertElementDialog editor={editor} />}
     </div>
   );
 };
@@ -264,6 +264,7 @@ const CommentEditor = ({
 CommentEditor.propTypes = {
   content: PropTypes.any,
   placeholder: PropTypes.string,
+  toolMenus: PropTypes.array,
 
   insertContent: PropTypes.func,
   onContentChange: PropTypes.func,

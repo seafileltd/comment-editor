@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Button } from 'reactstrap';
 import { context } from '@/basic-sdk';
 
 import './error-page.css';
 
-function ErrorPage({ t }) {
+function ErrorPage() {
+  const { t } = useTranslation('sdoc-editor');
 
   const normalizeSdoc = useCallback(async () => {
     const res = await context.normalizeSdocContent();
@@ -24,4 +25,4 @@ function ErrorPage({ t }) {
   );
 }
 
-export default withTranslation('sdoc-editor')(ErrorPage);
+export default ErrorPage;

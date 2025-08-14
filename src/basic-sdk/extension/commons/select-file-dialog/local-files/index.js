@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 import slugid from 'slugid';
 import toaster from '../../../../components/toast';
@@ -9,7 +9,8 @@ import { addDataToTree, parcelFileTypeIcon } from '../helpers';
 
 import './index.css';
 
-const LocalFiles = ({ onSelectedFile, toggle, fileType, t, searchContent, isOpenSearch }) => {
+const LocalFiles = ({ onSelectedFile, toggle, fileType, searchContent, isOpenSearch }) => {
+  const { t } = useTranslation('sdoc-editor');
   const folderRef = useRef(null);
   const [expandedFolder, setExpandedFolder] = useState(new Set([]));
   const [currentActiveItem, setCurrentActiveItem] = useState(null);
@@ -176,4 +177,4 @@ const LocalFiles = ({ onSelectedFile, toggle, fileType, t, searchContent, isOpen
   );
 };
 
-export default withTranslation('sdoc-editor')(LocalFiles);
+export default LocalFiles;

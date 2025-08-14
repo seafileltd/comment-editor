@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import ElementDropdownMenuItem from '../../../../commons/dropdown-menu-item';
 import { MENUS_CONFIG_MAP, ELEMENT_TYPE, INSERT_POSITION } from '../../../../constants';
@@ -42,4 +41,4 @@ TableMenu.propTypes = {
   editor: PropTypes.object,
 };
 
-export default withTranslation('sdoc-editor')(TableMenu);
+export default TableMenu;

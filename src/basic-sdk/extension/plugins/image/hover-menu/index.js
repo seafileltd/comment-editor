@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Editor, Transforms } from '@seafile/slate';
 import { ReactEditor } from '@seafile/slate-react';
 import classnames from 'classnames';
@@ -22,7 +22,8 @@ const propTypes = {
   onHideImageHoverMenu: PropTypes.func,
 };
 
-const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageCaptionInputRef, onHideImageHoverMenu, t, readonly }) => {
+const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageCaptionInputRef, onHideImageHoverMenu, readonly }) => {
+  const { t } = useTranslation('sdoc-editor');
   const { data, border_type = IMAGE_BORDER_TYPE[0].type } = element;
   const { align = 'left', type } = parentNodeEntry[0];
   const { show_caption = false } = data;
@@ -275,4 +276,4 @@ const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageC
 
 ImageHoverMenu.propTypes = propTypes;
 
-export default withTranslation('sdoc-editor')(ImageHoverMenu);
+export default ImageHoverMenu;

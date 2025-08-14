@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { withTranslation } from 'react-i18next';
 import { Transforms } from '@seafile/slate';
 import { ReactEditor, useReadOnly } from '@seafile/slate-react';
 import { getVideoURL, formatFileSize, videoFileIcon } from './helpers';
@@ -123,7 +122,7 @@ const Video = ({ element, editor }) => {
   );
 };
 
-const SdocVideo = withTranslation('sdoc-editor')(Video);
+const SdocVideo = Video;
 
 export function renderVideo(props, editor) {
   const { element, children, attributes } = props;

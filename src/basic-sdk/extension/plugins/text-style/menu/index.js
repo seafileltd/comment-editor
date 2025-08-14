@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Editor } from '@seafile/slate';
 import PropTypes from 'prop-types';
 import { INTERNAL_EVENT } from '../../../../constants';
@@ -16,7 +16,8 @@ import FontSizeScale from '../../font/menu/font-size/font-size-scale';
 import { unWrapLinkNode } from '../../link/helpers';
 import { getValue, isMenuDisabled, addMark, removeMark } from '../helpers';
 
-const TextStyleMenuList = ({ editor, t, isRichEditor, className, idPrefix, readonly }) => {
+const TextStyleMenuList = ({ editor, isRichEditor, className, idPrefix, readonly }) => {
+  const { t } = useTranslation('sdoc-editor');
   let selectedFontSize = getFontSize(editor);
   let selectedFontSizeValue = selectedFontSize;
   const enableSeafileAI = context.getSetting('enableSeafileAI');
@@ -158,4 +159,4 @@ TextStyleMenuList.propTypes = {
   isCommentEditor: PropTypes.bool, // Apply for comment editor
 };
 
-export default withTranslation('sdoc-editor')(TextStyleMenuList);
+export default TextStyleMenuList;

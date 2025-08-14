@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { UncontrolledPopover } from 'reactstrap';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -102,4 +102,4 @@ TextAlignMenu.propTypes = {
   t: PropTypes.func
 };
 
-export default withTranslation('sdoc-editor')(TextAlignMenu);
+export default TextAlignMenu;

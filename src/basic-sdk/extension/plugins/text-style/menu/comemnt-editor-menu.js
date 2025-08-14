@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { MenuItem } from '../../../commons';
 import { TEXT_STYLE, MENUS_CONFIG_MAP } from '../../../constants';
@@ -71,4 +70,4 @@ CommentEditorTextStyleMenuList.propTypes = {
   isCommentEditor: PropTypes.bool, // Apply for comment editor
 };
 
-export default withTranslation('sdoc-editor')(CommentEditorTextStyleMenuList);
+export default CommentEditorTextStyleMenuList;

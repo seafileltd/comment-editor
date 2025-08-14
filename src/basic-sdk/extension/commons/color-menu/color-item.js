@@ -1,9 +1,10 @@
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const ColorItem = ({ t, color, lastUsedColor }) => {
+const ColorItem = ({ color, lastUsedColor }) => {
+  const { t } = useTranslation('sdoc-editor');
   return (
     <div
       className={classnames('sdoc-color-item', { 'selected': lastUsedColor === color.value })}
@@ -22,4 +23,4 @@ ColorItem.propTypes = {
   t: PropTypes.func,
 };
 
-export default withTranslation('sdoc-editor')(ColorItem);
+export default ColorItem;

@@ -1,5 +1,4 @@
-import React from 'react';
-import { withTranslation } from 'react-i18next';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
 import ErrorBoundary from '../components/error-boundary';
@@ -19,7 +18,7 @@ const SeafileCommentEditor = ({
 
   hiddenUserInfo,
   hiddenComment,
-  hiddenToolMenu,
+  toolMenus,
   closePanel,
 
   collaborators,
@@ -34,30 +33,32 @@ const SeafileCommentEditor = ({
 
 
   return (
-    <ErrorBoundary>
-      <CommentProvider
-        type={type}
-        className={className}
-        pluginName={pluginName}
-        pluginEventBus={pluginEventBus}
-        pluginEvent={pluginEvent}
-        collaborators={collaborators}
-        participants={participants}
-        addParticipants={addParticipants}
-      >
-        <CommentEditor
-          content={content}
-          insertContent={insertContent}
-          onContentChange={onContentChange}
-
-          hiddenUserInfo={hiddenUserInfo}
-          hiddenComment={hiddenComment}
-          hiddenToolMenu={hiddenToolMenu}
-          closePanel={closePanel}
+    <Suspense>
+      <ErrorBoundary>
+        <CommentProvider
+          type={type}
+          className={className}
+          pluginName={pluginName}
+          pluginEventBus={pluginEventBus}
+          pluginEvent={pluginEvent}
+          collaborators={collaborators}
+          participants={participants}
           addParticipants={addParticipants}
-        />
-      </CommentProvider>
-    </ErrorBoundary>
+        >
+          <CommentEditor
+            content={content}
+            insertContent={insertContent}
+            onContentChange={onContentChange}
+
+            hiddenUserInfo={hiddenUserInfo}
+            hiddenComment={hiddenComment}
+            toolMenus={toolMenus}
+            closePanel={closePanel}
+            addParticipants={addParticipants}
+          />
+        </CommentProvider>
+      </ErrorBoundary>
+    </Suspense>
   );
 };
 
@@ -66,4 +67,4 @@ SeafileCommentEditor.propTypes = {
   pluginName: PropTypes.string,
 };
 
-export default withTranslation('sdoc-editor')(SeafileCommentEditor);
+export default SeafileCommentEditor;

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Transforms } from '@seafile/slate';
 import { ReactEditor, useReadOnly } from '@seafile/slate-react';
 import classnames from 'classnames';
@@ -21,7 +21,8 @@ const propTypes = {
   onUnwrapFileLinkNode: PropTypes.func
 };
 
-const SdocLinkHoverMenu = ({ editor, menuPosition, element, onUnwrapFileLinkNode, onHideInsertHoverMenu, t, url }) => {
+const SdocLinkHoverMenu = ({ editor, menuPosition, element, onUnwrapFileLinkNode, onHideInsertHoverMenu, url }) => {
+  const { t } = useTranslation('sdoc-editor');
   const readOnly = useReadOnly();
   const [isShowDisplayStylePopover, setIsShowDisplayStylePopover] = useState(false);
 
@@ -107,4 +108,4 @@ const SdocLinkHoverMenu = ({ editor, menuPosition, element, onUnwrapFileLinkNode
 
 SdocLinkHoverMenu.propTypes = propTypes;
 
-export default withTranslation('sdoc-editor')(SdocLinkHoverMenu);
+export default SdocLinkHoverMenu;
