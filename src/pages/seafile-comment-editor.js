@@ -7,7 +7,7 @@ const SeafileCommentEditor = ({
   // Provider
   type, // comment or replay
   className = '',
-  pluginName = '', // sdoc or wiki or txt ...
+  pluginName = '', // sdoc or dtable or txt or py ...
   pluginEventBus,
   pluginEvent,
 
@@ -30,7 +30,6 @@ const SeafileCommentEditor = ({
   api,
 }) => {
   context.init(settings, api);
-
 
   return (
     <Suspense>
@@ -63,8 +62,30 @@ const SeafileCommentEditor = ({
 };
 
 SeafileCommentEditor.propTypes = {
+  // Provider
+  type: PropTypes.string, // comment or replay
   className: PropTypes.string,
-  pluginName: PropTypes.string,
+  pluginName: PropTypes.string, // sdoc or dtable or txt or py ...
+  pluginEventBus: PropTypes.object,
+  pluginEvent: PropTypes.object,
+
+  // Comment editor
+  content: PropTypes.any,
+  insertContent: PropTypes.func,
+  onContentChange: PropTypes.func,
+
+  hiddenUserInfo: PropTypes.bool,
+  hiddenComment: PropTypes.func,
+  toolMenus: PropTypes.array,
+  closePanel: PropTypes.func,
+
+  collaborators: PropTypes.array,
+  participants: PropTypes.array,
+  addParticipants: PropTypes.func,
+
+  // settings
+  settings: PropTypes.object,
+  api: PropTypes.object,
 };
 
 export default SeafileCommentEditor;
