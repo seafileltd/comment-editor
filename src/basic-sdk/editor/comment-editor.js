@@ -30,11 +30,9 @@ const getSubmitTip = (type, content) => {
   return type === 'comment' ? 'Comment' : 'Reply';
 };
 
-const DEFAULT_PLACEHOLDER = 'Enter_comment_shift_enter_for_new_line_Enter_to_send';
-
 const CommentEditor = ({
   content,
-  placeholder = DEFAULT_PLACEHOLDER,
+  placeholder = '',
   toolMenus = ['text_style', BLOCKQUOTE, UNORDERED_LIST, ORDERED_LIST, LINK, IMAGE],
 
   insertContent,
@@ -230,7 +228,7 @@ const CommentEditor = ({
                   id='sdoc-editor'
                   scrollSelectionIntoView={handleScrollIntoView}
                   cursors={cursors}
-                  renderElement={(props) => RenderCommentEditorCustomRenderElement({ ...props, commentType: type })}
+                  renderElement={(props) => RenderCommentEditorCustomRenderElement({ ...props, commentType: type, placeholder })}
                   renderLeaf={renderLeaf}
                   onMouseDown={onMouseDown}
                   decorate={decorate}

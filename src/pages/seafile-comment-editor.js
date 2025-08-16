@@ -5,6 +5,7 @@ import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
 const SeafileCommentEditor = ({
   // Provider
   type, // comment or replay
+  placeholder,
   className = '',
   pluginName = '', // sdoc or dtable or txt or py ...
   pluginEventBus,
@@ -44,14 +45,14 @@ const SeafileCommentEditor = ({
       >
         <CommentEditor
           content={content}
+          placeholder={placeholder}
+          toolMenus={toolMenus}
           insertContent={insertContent}
           onContentChange={onContentChange}
 
-          hiddenUserInfo={hiddenUserInfo}
           hiddenComment={hiddenComment}
-          toolMenus={toolMenus}
+          hiddenUserInfo={hiddenUserInfo}
           closePanel={closePanel}
-          addParticipants={addParticipants}
         />
       </CommentProvider>
     </Suspense>
@@ -61,6 +62,7 @@ const SeafileCommentEditor = ({
 SeafileCommentEditor.propTypes = {
   // Provider
   type: PropTypes.string, // comment or replay
+  placeholder: PropTypes.string,
   className: PropTypes.string,
   pluginName: PropTypes.string, // sdoc or dtable or txt or py ...
   pluginEventBus: PropTypes.object,
