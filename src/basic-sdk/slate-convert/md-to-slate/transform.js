@@ -1,12 +1,10 @@
 import slugid from 'slugid';
 import {
   BLOCKQUOTE,
-  HEADER,
   IMAGE,
   LINK,
   PARAGRAPH,
   TABLE,
-  CODE_BLOCK,
   LIST_ITEM,
   ORDERED_LIST,
   UNORDERED_LIST,
@@ -131,16 +129,6 @@ const transformNodeWithInlineChildren = (node) => {
   return result.flat();
 };
 
-export const transformHeader = (node) => {
-  const { depth } = node;
-  const type = `${HEADER}${depth}`;
-  return {
-    id: slugid.nice(),
-    type: type,
-    children: transformNodeWithInlineChildren(node),
-  };
-};
-
 export const transformParagraph = (node) => {
   return {
     id: slugid.nice(),
@@ -186,8 +174,6 @@ export const transformListItem = (node) => {
     children: children.map(child => {
       if (child.type === PARAGRAPH) {
         return transformListContent(child);
-      } else if (child.type === 'code') {
-        return transformCodeBlock(child);
       } else if (child.type === 'blockquote') {
         return transformBlockquote(child);
       } else if (child.type === 'list') {
@@ -263,16 +249,6 @@ export const transformTableRow = (row) => {
   };
 };
 
-export const transformTable = (node) => {
-  const { children: rows, align = [] } = node;
-  return {
-    id: slugid.nice(),
-    type: TABLE,
-    align: align,
-    children: rows.map((row, index) => transformTableRow(row)),
-  };
-};
-
 export const transformCodeLine = (text) => {
   return {
     id: slugid.nice(),
@@ -283,20 +259,6 @@ export const transformCodeLine = (text) => {
         text: text,
       }
     ]
-  };
-};
-
-export const transformCodeBlock = (node) => {
-  const { lang, value } = node;
-  let children = value.split('\n').filter(Boolean);
-  if (children.length === 0) {
-    children = [''];
-  }
-  return {
-    id: slugid.nice(),
-    type: CODE_BLOCK,
-    lang: lang,
-    children: children.map(text => transformCodeLine(text)),
   };
 };
 
@@ -353,28 +315,11 @@ export const transformBlockHtml = (node) => {
   return deserializeHtml(node.value);
 };
 
-export const transformMath = (node) => {
-  return {
-    id: slugid.nice(),
-    type: 'formula',
-    data: {
-      formula: node.value
-    },
-    children: [
-      generateDefaultText(),
-    ]
-  };
-};
-
 const elementHandlers = {
   'paragraph': transformParagraph,
-  'heading': transformHeader,
   'blockquote': transformBlockquote,
-  'table': transformTable,
   'list': transformList, // ordered_list | unordered_list | check_list_item
-  'code': transformCodeBlock,
   'thematicBreak': transformHr,
-  'math': transformMath,
   'html': transformBlockHtml,
 };
 

@@ -1,6 +1,5 @@
 import { Editor, Range } from '@seafile/slate';
-import { CODE_BLOCK, LINK } from '../../constants/element-type';
-import { TEXT_STYLE_MAP } from '../../constants/menus-config';
+import { LINK } from '../../constants/element-type';
 import { getNodeType } from '../../core';
 import { isLinkToolBarActive } from '../link/helpers';
 
@@ -10,9 +9,6 @@ export const isMenuDisabled = (editor, readonly) => {
 
   const [match] = Editor.nodes(editor, {
     match: n => {
-      const type = getNodeType(n);
-
-      if (type === CODE_BLOCK) return true; // Code block
       // TODO: seatable_column
       if (Editor.isVoid(editor, n) && n?.type !== 'seatable_column') return true; // void node
 
@@ -27,11 +23,6 @@ export const isMenuDisabled = (editor, readonly) => {
 };
 
 export const addMark = (editor, type) => {
-  if (type === TEXT_STYLE_MAP.SUPERSCRIPT) {
-    removeMark(editor, TEXT_STYLE_MAP.SUBSCRIPT);
-  } else if (type === TEXT_STYLE_MAP.SUBSCRIPT) {
-    removeMark(editor, TEXT_STYLE_MAP.SUPERSCRIPT);
-  }
   Editor.addMark(editor, type, true);
 };
 

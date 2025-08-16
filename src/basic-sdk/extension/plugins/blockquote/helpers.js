@@ -1,6 +1,6 @@
 import { Editor, Transforms, Element, Node } from '@seafile/slate';
 import slugid from 'slugid';
-import { BLOCKQUOTE, CHECK_LIST_ITEM, IMAGE, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST, CODE_BLOCK, TABLE, CALL_OUT, MULTI_COLUMN } from '../../constants';
+import { BLOCKQUOTE, CHECK_LIST_ITEM, IMAGE, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST, TABLE, CALL_OUT, MULTI_COLUMN } from '../../constants';
 import { focusEditor, getNodeType, getSelectedNodeEntryByType } from '../../core';
 
 export const isMenuDisabled = (editor, readonly) => {
@@ -102,7 +102,7 @@ export const getFormattedElements = (data) => {
   const elements = [];
   let arr = [];
   data.forEach((item) => {
-    if ([CODE_BLOCK, TABLE, BLOCKQUOTE].includes(item?.type)) {
+    if ([BLOCKQUOTE].includes(item?.type)) {
       // Insert quote block
       if (arr.length !== 0) {
         const blockquoteNode = { id: slugid.nice(), type: BLOCKQUOTE };

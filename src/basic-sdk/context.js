@@ -1,12 +1,9 @@
 import Url from 'url-parse';
-import SDocServerApi from './api/sdoc-server-api';
-import SeafileAPI from './api/seafile-api';
 
 class Context {
 
   constructor() {
     this.settings = null;
-    this.sdocServerApi = null;
     this.api = null;
     this.config = null;
   }
@@ -58,22 +55,6 @@ class Context {
     return this.config;
   }
 
-  getFileContent() {
-    return this.sdocServerApi.getDocContent()
-      .then(res => {
-        this.settings['last_modify_user'] = res.data.last_modify_user;
-        return res;
-      });
-  }
-
-  normalizeSdocContent() {
-    return this.sdocServerApi.normalizeSdocContent();
-  }
-
-  saveContent(content) {
-    return this.sdocServerApi.saveDocContent(content);
-  }
-
   /**
    * @private Get DocUuid
    */
@@ -101,41 +82,8 @@ class Context {
     );
   };
 
-  getCollaborators() {
-    return this.sdocServerApi.getCollaborators();
-  }
-
   getUserInfo() {
     return this.user;
-  }
-
-  // comments
-  listComments() {
-    return this.sdocServerApi.listComments();
-  }
-
-  insertComment(comment) {
-    return this.sdocServerApi.insertComment(comment);
-  }
-
-  deleteComment(commentId) {
-    return this.sdocServerApi.deleteComment(commentId);
-  }
-
-  updateComment(commentId, newComment) {
-    return this.sdocServerApi.updateComment(commentId, newComment);
-  }
-
-  insertReply(commentId, reply) {
-    return this.sdocServerApi.insertReply(commentId, reply);
-  }
-
-  deleteReply(commentId, replyId) {
-    return this.sdocServerApi.deleteReply(commentId, replyId);
-  }
-
-  updateReply(commentId, replyId, newReply) {
-    return this.sdocServerApi.updateReply(commentId, replyId, newReply);
   }
 
   // revision
@@ -252,22 +200,6 @@ class Context {
   listRelatedUsers() {
     const docUuid = this.getSetting('docUuid');
     return this.api.listRelatedUsers(docUuid);
-  }
-
-  // notification
-  listUnseenNotifications() {
-    const docUuid = this.getDocUuid();
-    return this.api.listUnseenNotifications(docUuid);
-  }
-
-  deleteUnseenNotifications(notificationIds) {
-    const docUuid = this.getDocUuid();
-    return this.api.deleteUnseenNotifications(docUuid, notificationIds);
-  }
-
-  readAllNotifications() {
-    const docUuid = this.getDocUuid();
-    return this.api.readAllNotifications(docUuid);
   }
 
   aiTranslate(text, lang) {

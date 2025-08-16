@@ -1,7 +1,7 @@
 import { Editor, Transforms, Range, Path } from '@seafile/slate';
 import { ReactEditor } from '@seafile/slate-react';
 import slugid from 'slugid';
-import { CODE_BLOCK, CODE_LINE, ELEMENT_TYPE, INSERT_POSITION, LINK, LIST_ITEM, PARAGRAPH } from '../../constants';
+import { ELEMENT_TYPE, INSERT_POSITION, LINK, LIST_ITEM, PARAGRAPH } from '../../constants';
 import { getNodeType, getSelectedElems, getAboveNode, getEditorString, replaceNodeChildren, generateEmptyElement } from '../../core';
 
 export const isMenuDisabled = (editor, readonly) => {
@@ -12,7 +12,7 @@ export const isMenuDisabled = (editor, readonly) => {
   const notMatch = selectedElems.some(elem => {
     const { type } = elem;
     if (editor.isVoid(elem)) return true;
-    if ([CODE_BLOCK, CODE_LINE, LINK].includes(type)) return true;
+    if ([LINK].includes(type)) return true;
     return false;
   });
   if (notMatch) return true; // disabled
@@ -142,13 +142,6 @@ export const unWrapLinkNode = (editor) => {
   Transforms.unwrapNodes(editor, {
     match: n => getNodeType(n) === LINK,
   });
-};
-
-export const isSdocFile = (res, url) => {
-  const { data: { files_info } } = res;
-  const fileInfo = files_info[url];
-  const { is_dir, file_ext } = fileInfo || {};
-  return !is_dir && file_ext === 'sdoc';
 };
 
 export const isWeChat = () => {

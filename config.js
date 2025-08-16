@@ -8,7 +8,7 @@ const versions = {};
 });
 
 module.exports = {
-  appName: '@seafile/sdoc-editor',
+  appName: '@seafile/comment-editor',
   dev: {
     publishPort: 9000,
     webpackPort: 9001,
@@ -19,10 +19,8 @@ module.exports = {
       `/prop-types@${versions['prop-types']}/prop-types.min.js`,
     ],
     styles: [
-      // '/prism/1.15.0/themes/prism.min.css',
       'public/media/seafile-ui.css',
       'public/media/sdoc-editor-font.css',
-      'public/media/dtable-font.css'
     ],
   },
   themes: ['default'],
@@ -35,7 +33,7 @@ module.exports = {
       filename: '[name].js'
     },
     alias: {
-      '@seafile/sdoc-editor': path.resolve(__dirname, 'src'),
+      '@seafile/comment-editor': path.resolve(__dirname, 'src'),
       '@': path.resolve(__dirname, 'src')
     },
     devtool: 'cheap-module-source-map',

@@ -7,7 +7,6 @@
   "dependencies": {
     "@seafile/comment-editor": "^0.0.1-alpha.0",
     "@seafile/react-image-lightbox": "4.0.2",
-    "@seafile/sdoc-editor": "2.0.60",
     "@seafile/slate": "0.91.8",
     "@seafile/slate-history": "0.86.2",
     "@seafile/slate-hyperscript": "0.81.7",
@@ -100,8 +99,6 @@
     "css-minimizer-webpack-plugin": "5.0.1",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
-    "dtable-sdk": "5.0.10",
-    "dtable-utils": "5.0.1",
     "ejs": "3.1.10",
     "eslint": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",

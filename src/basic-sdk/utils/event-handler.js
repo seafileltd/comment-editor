@@ -1,8 +1,6 @@
 import isHotkey from 'is-hotkey';
-import { INTERNAL_EVENT } from '../constants';
 import { ELEMENT_TYPE } from '../extension/constants';
 import { getSelectedNodeByType } from '../extension/core/queries/';
-import EventBus from '../utils/event-bus';
 import { setOriginSdocKey } from './document-utils';
 
 class EventProxy {
@@ -71,12 +69,6 @@ class EventProxy {
       editor.handleTab && editor.handleTab(event);
     }
 
-    if (isHotkey('mod+p', event)) {
-      event.preventDefault();
-      const eventBus = EventBus.getInstance();
-      eventBus.dispatch(INTERNAL_EVENT.ON_PRINT);
-    }
-
     const node = getSelectedNodeByType(editor, ELEMENT_TYPE.TABLE);
     if (node) {
       this.editor.tableOnKeyDown(event);
@@ -85,11 +77,6 @@ class EventProxy {
     const imageNode = getSelectedNodeByType(editor, ELEMENT_TYPE.IMAGE);
     if (imageNode) {
       this.editor.imageOnKeyDown(event);
-    }
-    if (getSelectedNodeByType(editor, ELEMENT_TYPE.CODE_BLOCK)) {
-      this.editor.codeBlockOnKeyDown(event);
-      const eventBus = EventBus.getInstance();
-      eventBus.dispatch(INTERNAL_EVENT.HIDDEN_CODE_BLOCK_HOVER_MENU);
     }
   };
 

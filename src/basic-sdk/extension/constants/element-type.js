@@ -19,7 +19,6 @@ export const UNORDERED_LIST = 'unordered_list';
 export const LIST_ITEM = 'list_item';
 export const CHECK_LIST_ITEM = 'check_list_item';
 export const PARAGRAPH = 'paragraph';
-export const CODE_BLOCK = 'code_block';
 export const CODE_LINE = 'code_line';
 export const TABLE = 'table';
 export const TABLE_ROW = 'table_row';
@@ -38,10 +37,7 @@ export const FILE_LINK_INSET_INPUT_TEMP = 'file_link_insert_input_temp';
 export const QUICK_INSERT = 'quick_insert';
 export const VIDEO_LINK = 'video_link';
 
-export const ASK_AI = 'ask_ai';
-
 // font
-export const FONT_SIZE = 'font-size';
 export const FONT_SIZE_INCREASE = 'font-size-increase';
 export const FONT_SIZE_REDUCE = 'font-size-reduce';
 
@@ -60,8 +56,6 @@ export const TOP_LEVEL_TYPES = [
   UNORDERED_LIST,
   CHECK_LIST_ITEM,
   PARAGRAPH,
-  CODE_BLOCK,
-  TABLE,
 ];
 
 export const INLINE_LEVEL_TYPES = [

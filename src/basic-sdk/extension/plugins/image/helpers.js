@@ -5,7 +5,7 @@ import urlJoin from 'url-join';
 import { COMMENT_EDITOR, INTERNAL_EVENT } from '../../../constants';
 import context from '../../../context';
 import EventBus from '../../../utils/event-bus';
-import { CODE_BLOCK, ELEMENT_TYPE, IMAGE, IMAGE_BLOCK, INSERT_POSITION, PARAGRAPH, SUBTITLE, TITLE, LIST_ITEM, CHECK_LIST_ITEM, BLOCKQUOTE, CALL_OUT } from '../../constants';
+import { ELEMENT_TYPE, IMAGE, IMAGE_BLOCK, INSERT_POSITION, PARAGRAPH, SUBTITLE, TITLE, LIST_ITEM, CHECK_LIST_ITEM, BLOCKQUOTE, CALL_OUT } from '../../constants';
 import { generateEmptyElement, getNodeType, isTextNode, getParentNode, focusEditor, getAboveBlockNode, generateDefaultParagraph } from '../../core';
 import base64ToUnit8Array from './base64-to-unit8array';
 import ImageCache from './image-cache';
@@ -39,7 +39,6 @@ export const isInsertImageMenuDisabled = (editor, readonly) => {
         type = getNodeType(parentNode);
       }
 
-      if (type === CODE_BLOCK) return true;
       if (type.startsWith('header')) return true;
       if (type === TITLE) return true;
       if (type === SUBTITLE) return true;

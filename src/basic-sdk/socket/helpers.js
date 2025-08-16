@@ -1,6 +1,5 @@
-import { Editor, Operation, Point } from '@seafile/slate';
+import { Editor, Operation } from '@seafile/slate';
 import deepCopy from 'deep-copy';
-import { setCursor } from '../cursor/helper';
 import { getNode } from '../extension/core';
 import * as OPERATION from '../node-id/constants';
 
@@ -238,22 +237,4 @@ export const syncRemoteOperations = (editor, remoteOperations) => {
       editor.apply(op);
     }
   });
-};
-
-export const syncRemoteCursorLocation = (editor, user, location, cursorData) => {
-  const currentUser = editor.user;
-  if (user && user.username !== currentUser.username) {
-    // Get front Point as cursor
-    const { anchor, focus } = location;
-    let newLocation = location;
-    if (!Point.equals(anchor, focus)) {
-      const frontPoint = Editor.start(editor, location);
-      newLocation = { anchor: frontPoint, focus: frontPoint };
-    }
-
-    setCursor(editor, user, newLocation, cursorData);
-
-    // sync cursor position
-    editor.onCursor && editor.onCursor(editor.cursors);
-  }
 };

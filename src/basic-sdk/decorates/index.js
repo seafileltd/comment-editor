@@ -1,9 +1,7 @@
 import { commentDecorate } from '../comment/comment-decorate';
-import { highlightDecorate } from '../highlight';
 import useSelectionUpdate from '../hooks/use-selection-update';
 
 const pluginDecorates = [
-  highlightDecorate,
   commentDecorate
 ];
 

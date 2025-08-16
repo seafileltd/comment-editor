@@ -1,10 +1,10 @@
 import React from 'react';
 import { Node, Range } from '@seafile/slate';
 import { ReactEditor, useSelected, useSlateStatic } from '@seafile/slate-react';
+import Placeholder from '../../../components/placeholder/placeholder';
 import { COMMENT_EDITOR } from '../../../constants';
 import { ELEMENT_TYPE } from '../../constants';
 import { getTopLevelBlockNode } from '../../core';
-import Placeholder from '../header/placeholder';
 import { isEmptyNode } from './helper';
 
 const PLACEHOLDER = 'Enter_text_or_press_forward_slash_to_insert_element';

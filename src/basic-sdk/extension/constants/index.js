@@ -17,7 +17,6 @@ import {
   UNORDERED_LIST,
   LIST_ITEM,
   CHECK_LIST_ITEM,
-  CODE_BLOCK,
   CODE_LINE,
   TABLE,
   TABLE_CELL,
@@ -44,76 +43,15 @@ import {
 } from './element-type';
 
 export {
-  DEFAULT_COLORS,
-  STANDARD_COLORS,
-  DEFAULT_RECENT_USED_LIST,
-  DEFAULT_FONT_COLOR,
-  RECENT_USED_HIGHLIGHT_COLORS_KEY,
-  RECENT_USED_FONT_COLORS_KEY,
-  RECENT_USED_TABLE_CELL_BACKGROUND_COLORS_KEY,
-  DEFAULT_LAST_USED_FONT_COLOR,
-  DEFAULT_LAST_USED_HIGHLIGHT_COLOR,
-  DEFAULT_LAST_USED_TABLE_CELL_BACKGROUND_COLOR
-} from './color';
-export {
-  FONT_SIZE,
-  DEFAULT_FONT,
-  FONT,
-  GOOGLE_FONT_CLASS,
-  RECENT_USED_FONTS_KEY,
-  SDOC_FONT_SIZE
-} from './font';
-export { DIFF_TYPE, ADDED_STYLE, DELETED_STYLE, } from './diff-view';
-export { KEYBOARD, MAC_HOTKEYS, WIN_HOTKEYS } from './keyboard';
-export {
-  UNDO,
-  REDO,
   TEXT_STYLE,
   TEXT_STYLE_MAP,
-  TEXT_STYLE_MORE,
   TEXT_ALIGN,
-  REMOVE_TABLE,
-  COMBINE_CELL,
-  CLEAR_FORMAT,
   MENUS_CONFIG_MAP,
-  SIDE_TRANSFORM_MENUS_CONFIG,
-  SIDE_TRANSFORM_MENUS_SEARCH_MAP,
-  SIDE_INSERT_MENUS_CONFIG,
-  SIDE_INSERT_MENUS_SEARCH_MAP,
-  SIDE_QUICK_INSERT_MENUS_SEARCH_MAP,
-  SIDE_OTHER_OPERATIONS_MENUS_SEARCH_MAP,
 } from './menus-config';
-
-export const HEADERS = [
-  HEADER1,
-  HEADER2,
-  HEADER3,
-  HEADER4,
-  HEADER5,
-  HEADER6,
-];
-
-export const HEADER_TITLE_MAP = {
-  [TITLE]: 'Title',
-  [SUBTITLE]: 'Subtitle',
-  [HEADER1]: 'Header_one',
-  [HEADER2]: 'Header_two',
-  [HEADER3]: 'Header_three',
-  [HEADER4]: 'Header_four',
-  [HEADER5]: 'Header_five',
-  [HEADER6]: 'Header_six',
-  [PARAGRAPH]: 'Paragraph',
-};
-
-export const TRANSPARENT = 'transparent';
 
 export const CLIPBOARD_FORMAT_KEY = 'x-slate-fragment';
 
-export const TABLE_DRAG_KEY = 'drag-table/json';
-
 export const CLIPBOARD_ORIGIN_SDOC_KEY = 'origin-sdoc-uuid';
-
-export const INSERT_FILE_DISPLAY_TYPE = ['text_link', 'icon_link', 'card_link'];
 
 export const INSERT_POSITION = {
   BEFORE: 'before',
@@ -122,127 +60,6 @@ export const INSERT_POSITION = {
 };
 
 export const LOCAL_IMAGE = 'local-image';
-export const LOCAL_VIDEO = 'local-video';
-
-export const MULTI_COLUMN_TYPE = [
-  TWO_COLUMN,
-  THREE_COLUMN,
-  FOUR_COLUMN,
-];
-
-export const LIST_TYPE_ARRAY = [
-  UNORDERED_LIST,
-  ORDERED_LIST,
-];
-
-export const LIST_ITEM_CORRELATION_TYPE = [
-  UNORDERED_LIST,
-  ORDERED_LIST,
-  LIST_ITEM
-];
-
-export const LIST_ITEM_SUPPORTED_TRANSFORMATION = [
-  UNORDERED_LIST,
-  ORDERED_LIST,
-  'left',
-  'center',
-  'right',
-  BLOCKQUOTE
-];
-
-export const ADD_POSITION_OFFSET_TYPE = [
-  PARAGRAPH,
-  SUBTITLE,
-  HEADER1,
-  HEADER2,
-  HEADER3,
-  HEADER4,
-  HEADER5,
-  HEADER6,
-  CHECK_LIST_ITEM,
-  IMAGE_BLOCK
-];
-
-export const FILE_TYPE = {
-  [FILE_LINK]: 'file',
-  [SDOC_LINK]: 'sdoc',
-  [VIDEO]: 'video'
-};
-
-export const FILEEXT_TYPE = {
-  VIDEO: ['mp4', 'ogv', 'webm', 'mov'],
-  MUSIC: ['mp3', 'oga', 'ogg', 'wav', 'flac', 'opus'],
-  SPREADSHEET: ['xls', 'xlsx', 'ods', 'fods'],
-  MARKDOWN: ['markdown', 'md'],
-  EXCALIDRAW: ['exdraw'],
-  DOCUMENT: ['doc', 'docx', 'docxf', 'oform', 'ppt', 'pptx', 'odt', 'fodt', 'odp', 'fodp', 'odg'],
-};
-
-export const FILEEXT_TYPE_MAP = {
-  VIDEO: 'video',
-  MUSIC: 'music',
-  SPREADSHEET: 'excel',
-  MARKDOWN: 'md',
-  EXCALIDRAW: 'draw',
-  DOCUMENT: 'word'
-};
-
-export const SUPPORTED_SIDE_OPERATION_TYPE = [
-  PARAGRAPH,
-  SUBTITLE,
-  HEADER1,
-  HEADER2,
-  HEADER3,
-  HEADER4,
-  HEADER5,
-  HEADER6,
-  CHECK_LIST_ITEM,
-  CODE_BLOCK,
-  TABLE,
-  BLOCKQUOTE,
-  CALL_OUT,
-  IMAGE_BLOCK,
-  VIDEO,
-];
-
-export const MOUSE_ENTER_EVENT_DISABLED_MAP = {
-  [PARAGRAPH]: [CALL_OUT],
-  [TITLE]: [CALL_OUT],
-  [SUBTITLE]: [CALL_OUT],
-  [CHECK_LIST_ITEM]: [CALL_OUT],
-  [ORDERED_LIST]: [CALL_OUT],
-  [UNORDERED_LIST]: [CALL_OUT],
-  [LIST_ITEM]: [CALL_OUT],
-  [BLOCKQUOTE]: [CALL_OUT],
-  [HEADER1]: [CALL_OUT],
-  [HEADER2]: [CALL_OUT],
-  [HEADER3]: [CALL_OUT],
-  [HEADER4]: [CALL_OUT],
-  [HEADER5]: [CALL_OUT],
-  [HEADER6]: [CALL_OUT],
-  [CALL_OUT]: [CALL_OUT],
-};
-
-export const ROOT_ELEMENT_TYPES = [
-  PARAGRAPH,
-  TITLE,
-  SUBTITLE,
-  CHECK_LIST_ITEM,
-  ORDERED_LIST,
-  UNORDERED_LIST,
-  BLOCKQUOTE,
-  HEADER1,
-  HEADER2,
-  HEADER3,
-  HEADER4,
-  HEADER5,
-  HEADER6,
-  CALL_OUT,
-  TABLE,
-  CODE_BLOCK,
-  IMAGE_BLOCK,
-  VIDEO,
-];
 
 export {
   ELEMENT_TYPE,
@@ -266,7 +83,6 @@ export {
   UNORDERED_LIST,
   LIST_ITEM,
   CHECK_LIST_ITEM,
-  CODE_BLOCK,
   CODE_LINE,
   TABLE,
   TABLE_CELL,

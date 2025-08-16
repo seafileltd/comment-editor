@@ -7,7 +7,7 @@ import imagePlaceholder from '../../../assets/images/image-placeholder.png';
 import { INTERNAL_EVENT } from '../../../constants';
 import { useScrollContext } from '../../../hooks/use-scroll-context';
 import EventBus from '../../../utils/event-bus';
-import { ADDED_STYLE, DELETED_STYLE, IMAGE_BLOCK } from '../../constants';
+import { IMAGE_BLOCK } from '../../constants';
 import { IMAGE_BORDER_TYPE } from './constants';
 import Svg from './copy-image-error-svg';
 import { getImageURL, handleBase64Image, isImageUrlIsFromCopy, selectImageWhenSelectPartial, updateImage } from './helpers';
@@ -329,18 +329,11 @@ export function renderImage(props, editor) {
   const isSelected = useSelected();
 
   // decorate diff-viewer
-  const { element, leaf } = props;
+  const { leaf } = props;
   let style = { ...props.style };
 
   if (leaf && leaf.computed_background_color) {
     style['backgroundColor'] = leaf.computed_background_color;
-  }
-
-  if (element.add || element.delete) {
-    style = Object.assign({}, style, element.add ? ADDED_STYLE : DELETED_STYLE);
-    if (style.computed_background_color) {
-      style['backgroundColor'] = style.computed_background_color;
-    }
   }
 
   return <SdocImage {...props} style={style} editor={editor} isSelected={isSelected} />;

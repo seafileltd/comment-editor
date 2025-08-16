@@ -1,6 +1,5 @@
 import React from 'react';
 import { TEXT_STYLE_MAP } from '../../constants';
-import { generatorFontFamily } from '../font/helpers';
 import Caret from './caret';
 
 const renderText = (props) => {
@@ -29,53 +28,9 @@ const renderText = (props) => {
     style['backgroundColor'] = '#a9c9ed';
   }
 
-  // Background color overlap for multi comments
-  if (Object.keys(leaf).some(key => key.startsWith('sdoc_comment_'))) {
-    const commentEntries = Object.entries(leaf).filter(([key]) =>
-      key.startsWith('sdoc_comment_')
-    );
-
-    for (const [key, value] of commentEntries ) {
-      if (value === false && key.startsWith('sdoc_comment_')) {
-        const newKey = `removed_${key}`;
-        rest[newKey] = true;
-        delete rest[key];
-      }
-    }
-
-    const commentRest = Object.keys(rest).filter(item => item.startsWith('sdoc_comment_'));
-
-    // Multi comment or only one comment
-    if (commentRest.length > 1) {
-      style['backgroundColor'] = 'rgba(129, 237, 247)';
-    }
-    if (commentRest.length === 1 ) {
-      style['backgroundColor'] = 'rgba(129, 237, 247, 0.5)';
-    }
-  }
 
   if (leaf.computed_background_color) {
     style['backgroundColor'] = leaf.computed_background_color;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.COLOR]) {
-    style['color'] = leaf[TEXT_STYLE_MAP.COLOR];
-  }
-
-  if (leaf[TEXT_STYLE_MAP.HIGHLIGHT_COLOR]) {
-    style['backgroundColor'] = leaf[TEXT_STYLE_MAP.HIGHLIGHT_COLOR];
-  }
-
-  if (leaf[TEXT_STYLE_MAP.FONT_SIZE]) {
-    const fontSize = leaf[TEXT_STYLE_MAP.FONT_SIZE];
-    if (typeof fontSize === 'number') {
-      style['fontSize'] = `${fontSize}pt`;
-    }
-  }
-
-  if (leaf[TEXT_STYLE_MAP.FONT]) {
-    const fontWeight = leaf[TEXT_STYLE_MAP.BOLD] ? 600 : 400;
-    style['fontFamily'] = generatorFontFamily(leaf[TEXT_STYLE_MAP.FONT], fontWeight);
   }
 
   if (leaf[TEXT_STYLE_MAP.BOLD]) {
@@ -84,38 +39,6 @@ const renderText = (props) => {
 
   if (leaf[TEXT_STYLE_MAP.ITALIC]) {
     markedChildren = <i>{markedChildren}</i>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.UNDERLINE]) {
-    markedChildren = <span style={{ textDecoration: 'underline' }}>{markedChildren}</span>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.STRIKETHROUGH]) {
-    markedChildren = <span style={{ textDecoration: 'line-through' }}>{markedChildren}</span>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.SUPERSCRIPT]) {
-    markedChildren = <sup>{markedChildren}</sup>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.SUBSCRIPT]) {
-    markedChildren = <sub>{markedChildren}</sub>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.CODE]) {
-    markedChildren = <code>{markedChildren}</code>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.DELETE]) {
-    markedChildren = <del>{markedChildren}</del>;
-  }
-
-  if (leaf[TEXT_STYLE_MAP.ADD]) {
-    markedChildren = <span>{markedChildren}</span>;
-  }
-
-  if (leaf.decoration) {
-    markedChildren = <span className={`token ${leaf.type}`}>{markedChildren}</span>;
   }
 
   return (

@@ -7,8 +7,7 @@ import EventBus from '../../../utils/event-bus';
 import { ELEMENT_TYPE, LINK, ORDERED_LIST, UNORDERED_LIST } from '../../constants';
 import { getNodeType, getSelectedElems, getSelectedNodeByType } from '../../core';
 import { isImage, isSameDomain } from '../../utils';
-import { insertSdocFileLink } from '../sdoc-link/helpers';
-import { genLinkNode, isSdocFile } from './helpers';
+import { genLinkNode } from './helpers';
 
 const withLink = (editor) => {
   const { normalizeNode, isInline, insertData, insertFragment, onHotKeyDown } = editor;
@@ -30,15 +29,8 @@ const withLink = (editor) => {
     if (isUrl(text) && !isImage(text)) {
       if (isSameDomain(text, context.getSetting('serviceUrl'))) {
         try {
-          const res = await context.getLinkFilesInfo([text]);
-          if (isSdocFile(res, text)) {
-            const fileName = res.data.files_info[text].name;
-            const fileUuid = res.data.files_info[text].file_uuid;
-            insertSdocFileLink(editor, fileName, fileUuid);
-          } else {
-            const link = genLinkNode(text, text);
-            Transforms.insertNodes(newEditor, link);
-          }
+          const link = genLinkNode(text, text);
+          Transforms.insertNodes(newEditor, link);
         } catch (err) {
           const link = genLinkNode(text, text);
           Transforms.insertNodes(newEditor, link);

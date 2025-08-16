@@ -1,5 +1,5 @@
 import { Editor, Element, Transforms, Node, Path, Range } from '@seafile/slate';
-import { BLOCKQUOTE, PARAGRAPH, CODE_BLOCK, TABLE, HEADER1, HEADER2, HEADER3, HEADER4, HEADER5, HEADER6, TITLE, SUBTITLE } from '../../constants';
+import { BLOCKQUOTE, PARAGRAPH, TABLE, HEADER1, HEADER2, HEADER3, HEADER4, HEADER5, HEADER6, TITLE, SUBTITLE } from '../../constants';
 import { generateDefaultText, getSelectedNodeByType, getSelectedNodeEntryByType, isSelectionAtBlockStart, isContainsVoidElement, isMiddlePoint } from '../../core';
 import { getFormattedElements, getFormattedRestElements } from './helpers';
 
@@ -84,7 +84,7 @@ const withBlockquote = (editor) => {
   newEditor.insertFragment = (data) => {
     // Paste into quote block
     if (getSelectedNodeByType(newEditor, BLOCKQUOTE)) {
-      const lastIndex = data.findLastIndex((item) => [CODE_BLOCK, TABLE].includes(item?.type));
+      const lastIndex = data.findLastIndex((item) => [].includes(item?.type));
       let elements = getFormattedElements(data.slice(0, lastIndex + 1));
       let restElements = getFormattedRestElements(data.slice(lastIndex + 1));
       const path = Editor.path(newEditor, newEditor.selection);

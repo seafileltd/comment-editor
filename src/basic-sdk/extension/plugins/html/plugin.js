@@ -1,6 +1,5 @@
 import slugid from 'slugid';
-import { CODE_BLOCK, CODE_LINE } from '../../constants';
-import { getSelectedNodeByType } from '../../core';
+import { CODE_LINE } from '../../constants';
 import { deserializeHtml } from './helper';
 
 const withHtml = (editor) => {
@@ -10,7 +9,7 @@ const withHtml = (editor) => {
   newEditor.insertData = (data) => {
     if (!newEditor.insertFragmentData(data)) {
       // Other document paste content into code block
-      if (!data.types.includes('text/code-block') && getSelectedNodeByType(editor, CODE_BLOCK)) {
+      if (!data.types.includes('text/code-block')) {
         const plaintext = data.getData('text/plain') || '';
         if (plaintext) {
           let fragmentData = [];

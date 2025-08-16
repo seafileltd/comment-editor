@@ -12,7 +12,6 @@ export const UNORDERED_LIST = 'unordered_list'; // <ul> // unordered_list can no
 export const LIST_ITEM = 'list_item'; // <li>
 export const CHECK_LIST_ITEM = 'check_list_item';
 export const PARAGRAPH = 'paragraph';
-export const CODE_BLOCK = 'code_block';
 export const CODE_LINE = 'code_line';
 export const TABLE = 'table';
 export const TABLE_ROW = 'table_row';
@@ -33,7 +32,6 @@ export const TOP_LEVEL_TYPES = [
   UNORDERED_LIST,
   CHECK_LIST_ITEM,
   PARAGRAPH,
-  CODE_BLOCK,
   TABLE,
 ];
 

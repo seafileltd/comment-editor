@@ -108,15 +108,6 @@ const transformNodeWithInlineChildren = (node) => {
   return result.flat();
 };
 
-const transformHeader = (node) => {
-  const level = node.type.replace('header', '');
-  return {
-    type: 'heading',
-    depth: parseInt(level),
-    children: transformNodeWithInlineChildren(node)
-  };
-};
-
 const transformParagraph = (node) => {
   const { children } = node;
 
@@ -157,25 +148,6 @@ const transformBlockquote = (node) => {
   };
 };
 
-const transformCheckList = (node) => {
-  return {
-    type: 'list',
-    ordered: false,
-    start: null,
-    spread: false,
-    children: [
-      {
-        type: 'listItem',
-        spread: false,
-        checked: node.checked ? true : false,
-        children: [
-          transformParagraph(node),
-        ]
-      }
-    ],
-  };
-};
-
 const transformListContent = (node) => {
   return transformParagraph(node);
 };
@@ -187,9 +159,6 @@ const transformListItem = (node) => {
   const newChildren = children.map(child => {
     if (child.type === 'paragraph') {
       return transformListContent(child);
-    }
-    if (child.type === 'code_block') {
-      return transformCodeBlock(child);
     }
     if (child.type === 'blockquote') {
       return transformBlockquote(child);
@@ -233,56 +202,6 @@ const transformList = (node) => {
   };
 };
 
-const transformTableCell = (cell) => {
-  return {
-    type: 'tableCell',
-    children: transformNodeWithInlineChildren(cell),
-  };
-};
-
-const transformTableRow = (row) => {
-  const { children: cells } = row;
-  return {
-    type: 'tableRow',
-    children: cells.map(cell => transformTableCell(cell)),
-  };
-};
-
-const transformTable = (node) => {
-  const { children: rows } = node;
-  const align = rows.map(row => {
-    const { children: cells } = row;
-    return cells[0]?.align || null;
-  });
-  return {
-    type: 'table',
-    align: align,
-    children: rows.map(row => transformTableRow(row)),
-  };
-};
-
-const transformCodeLine = (node) => {
-  const text = node.children[0]?.text || '';
-  return text;
-};
-
-const transformCodeBlock = (node) => {
-  const { children } = node;
-  return {
-    type: 'code',
-    lang: node.lang ? node.lang : null,
-    value: children.map(child => transformCodeLine(child)).join('\n'),
-  };
-};
-
-const transformFormula = (node) => {
-  const data = node.data;
-  return {
-    type: 'math',
-    value: data.formula,
-  };
-};
-
 const transformMention = (node) => {
   const data = node.data;
   return {
@@ -300,19 +219,9 @@ const transformImageBlock = (node) => {
 
 const elementHandlers = {
   'paragraph': transformParagraph,
-  'header1': transformHeader,
-  'header2': transformHeader,
-  'header3': transformHeader,
-  'header4': transformHeader,
-  'header5': transformHeader,
-  'header6': transformHeader,
   'blockquote': transformBlockquote,
-  'table': transformTable,
-  'check_list_item': transformCheckList,
   'ordered_list': transformList,
   'unordered_list': transformList,
-  'code_block': transformCodeBlock,
-  'formula': transformFormula,
   'mention': transformMention,
   'image_block': transformImageBlock,
 };

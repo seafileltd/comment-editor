@@ -21,44 +21,6 @@ export const isSameDomain = (currentUrl, targetUrl) => {
   return String(currentUrl).split('/')[2] === String(targetUrl).split('/')[2];
 };
 
-export const isOverflowPortByDirection = (element, direction) => {
-  const viewWidth = window.innerWidth || document.documentElement.clientWidth;
-  const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-  const { top, right, bottom, left } = element.getBoundingClientRect();
-
-  if (direction === 'top') {
-    return top <= 0;
-  }
-
-  if (direction === 'bottom') {
-    return bottom >= viewHeight;
-  }
-
-  if (direction === 'left') {
-    return left <= 0;
-  }
-
-  if (direction === 'right') {
-    return right >= viewWidth;
-  }
-};
-
-export const onHandleOverflowScroll = (currentSelectItem, downDownWrapperRef) => {
-  const { bottom: curBottom, top: curTop } = currentSelectItem.getBoundingClientRect();
-  const { bottom: containerBottom } = downDownWrapperRef.current.parentNode.getBoundingClientRect();
-  const { top: containerTop } = downDownWrapperRef.current.getBoundingClientRect();
-
-  if (curBottom > containerBottom) {
-    const scrollTop = downDownWrapperRef.current.scrollTop + 100;
-    downDownWrapperRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-  }
-
-  if (curTop < containerTop) {
-    const scrollTop = downDownWrapperRef.current.scrollTop - 100;
-    downDownWrapperRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-  }
-};
-
 export const getMenuPosition = (element, editor) => {
   const { top, left } = element.getBoundingClientRect();
   const menuTop = top - 42; // top = top distance - menu height

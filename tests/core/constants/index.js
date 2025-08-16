@@ -16,7 +16,6 @@ export const CHECK_LIST_ITEM = 'check_list_item';
 export const PARAGRAPH = 'paragraph';
 export const LINK = 'link';
 export const HTML = 'html';
-export const CODE_BLOCK = 'code_block';
 export const CODE_LINE = 'code_line';
 export const IMAGE = 'image';
 export const TABLE = 'table';
@@ -33,7 +32,6 @@ export const voidChildren = [{ text: '' }];
 export const ELEMENTS = {
   ha: { type: LINK },
   hblockquote: { type: BLOCKQUOTE },
-  hcodeblock: { type: CODE_BLOCK },
   hcodeline: { type: CODE_LINE },
   hdefault: { type: PARAGRAPH },
   hh1: { type: HEADER1 },
