@@ -13,8 +13,6 @@ comment-editor/
     favicon.ico
   site(demo 模块, 基于组件库创建的测试模块)
     _i18n                   // 国际化模块
-    api                     // api 模块
-    assets                  // css 文件, 图片文件
     commons                 // 公共组件
     components              // 应用组件
     pages                   // 页面组件
@@ -22,13 +20,9 @@ comment-editor/
     index.html              // 主页
     index.js                // 应用入口
     setting.js              // 应用配置文件
-    setting.local.dist.js   // 应用配置模版
-    setting.local.dist      // 用户基于 setting.local.dist.js copy 一份的配置文件
+    setting.local.js   // 应用配置模版
   src/(组件库)
-    assets                  // css 文件, 资源文件
     basic-sdk               // 编辑器元素包
-    components              // 封装的视图组件
-    utils                   // 工具接口
     pages                   // 封装的视图组件
     index.js                // 组件库导出内容入口文件
   tests                     // 测试
@@ -40,7 +34,7 @@ comment-editor/
 ```
 
 ## 本地测试步骤
-1. 新增本地配置文件 setting.local.js(基于 /site/setting.local.dist.js copy 一份)
+1. 新增本地配置文件 setting.local.js(基于 /site/setting.js copy 一份)
 2. 在 seahub 项目创建一个测试文件, 根据需要的配置信息完善配置内容
 3. 执行 npm run start, 启动测试服务, 可以打开相应的网址, 对封装的组件进行测试
 
