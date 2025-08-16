@@ -1,7 +1,7 @@
 import { useReadOnly, useSlateStatic } from '@seafile/slate-react';
-import { LINK, LIST_ITEM, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST, IMAGE, IMAGE_BLOCK, VIDEO, MENTION, MENTION_TEMP, BLOCKQUOTE } from '../constants';
+import { LINK, LIST_ITEM, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST, IMAGE, IMAGE_BLOCK, MENTION, MENTION_TEMP, BLOCKQUOTE } from '../constants';
 import { getParentNode } from '../core';
-import { LinkPlugin, ListPlugin, ImagePlugin, VideoPlugin, ParagraphPlugin, MentionPlugin, BlockquotePlugin } from '../plugins';
+import { LinkPlugin, ListPlugin, ImagePlugin, ParagraphPlugin, MentionPlugin, BlockquotePlugin } from '../plugins';
 
 const RenderCommentEditorCustomRenderElement = (props) => {
   const editor = useSlateStatic();
@@ -47,10 +47,6 @@ const RenderCommentEditorCustomRenderElement = (props) => {
     case IMAGE_BLOCK: {
       const [, renderImageBlock] = ImagePlugin.renderElements;
       return renderImageBlock({ ...props }, editor);
-    }
-    case VIDEO: {
-      const [renderVideo] = VideoPlugin.renderElements;
-      return renderVideo({ ...props }, editor);
     }
     case MENTION: {
       const [renderMention] = MentionPlugin.renderElements;

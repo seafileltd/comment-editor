@@ -1,18 +1,8 @@
 import { createEditor } from '@seafile/slate';
 import { withHistory } from '@seafile/slate-history';
 import { withReact } from '@seafile/slate-react';
-import Plugins, { CommentPlugins } from './plugins';
+import { CommentPlugins } from './plugins';
 import renderLeaf from './render/render-leaf';
-
-const baseEditor = withHistory(withReact(createEditor()));
-
-const defaultEditor = Plugins?.reduce((editor, pluginItem) => {
-  const withPlugin = pluginItem.editorPlugin;
-  if (withPlugin) {
-    return withPlugin(editor);
-  }
-  return editor;
-}, baseEditor);
 
 export const createCommentEditor = () => {
   const defaultEditor = CommentPlugins?.reduce((editor, pluginItem) => {
@@ -25,8 +15,6 @@ export const createCommentEditor = () => {
 
   return defaultEditor;
 };
-
-export default defaultEditor;
 
 export {
   renderLeaf,

@@ -1,5 +1,4 @@
 import { Editor, Path, Transforms } from '@seafile/slate';
-import { LIST_TYPE_ARRAY } from '../../../constants';
 import { findDescendant, getLastChildPath, moveChildren } from '../../../core';
 import { generateEmptyList } from '../model';
 
@@ -9,12 +8,12 @@ export const moveListItemSublistItemsToListItemSublist = (editor, { fromListItem
 
   let moved = 0;
   Editor.withoutNormalizing(editor, () => {
-    const fromListItemSublist = findDescendant(editor, { at: fromListItemPath, match: { type: LIST_TYPE_ARRAY } });
+    const fromListItemSublist = findDescendant(editor, { at: fromListItemPath });
     if (!fromListItemSublist) return;
 
     const [, fromListItemSublistPath] = fromListItemSublist;
 
-    const toListItemSublist = findDescendant(editor, { at: toListItemPath, match: { type: LIST_TYPE_ARRAY } });
+    const toListItemSublist = findDescendant(editor, { at: toListItemPath });
 
     let to = null;
     if (!toListItemSublist) {
