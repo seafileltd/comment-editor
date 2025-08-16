@@ -3,8 +3,6 @@ import { Node, Range } from '@seafile/slate';
 import { ReactEditor, useSelected, useSlateStatic } from '@seafile/slate-react';
 import Placeholder from '../../../components/placeholder/placeholder';
 import { COMMENT_EDITOR } from '../../../constants';
-import { ELEMENT_TYPE } from '../../constants';
-import { getTopLevelBlockNode } from '../../core';
 import { isEmptyNode } from './helper';
 
 const PLACEHOLDER = 'Enter_text_or_press_forward_slash_to_insert_element';
@@ -35,18 +33,6 @@ const Paragraph = ({ isComposing, element, attributes, children, className, plac
     isEmptyNode(element) &&
     ReactEditor.findPath(editor, element).length === 1 &&
     !isComposing
-  ) {
-    isShowPlaceHolder = true;
-  }
-
-  // Distinguish whether paragraph node is in multi_column node
-  const aboveNodeEntry = isSelected && getTopLevelBlockNode(editor);
-  if (
-    !isComposing &&
-    (aboveNodeEntry && aboveNodeEntry[0].type === ELEMENT_TYPE.MULTI_COLUMN) &&
-    isSelected &&
-    isEmptyNode(element) &&
-    Range.isCollapsed(editor.selection)
   ) {
     isShowPlaceHolder = true;
   }

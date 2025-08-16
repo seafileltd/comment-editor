@@ -11,7 +11,6 @@ import {
 export const TEXT_STYLE = 'text_style';
 export const ITALIC = 'italic';
 export const BOLD = 'bold';
-const UNDERLINE = 'underline';
 const TEXT_LINK = 'text_link';
 
 // text-align
@@ -21,7 +20,6 @@ export const TEXT_STYLE_MAP = {
   BOLD: BOLD,
   ITALIC: ITALIC,
   BOLD_ITALIC: `${BOLD}_${ITALIC}`,
-  UNDERLINE: UNDERLINE,
   CODE: 'code',
   DELETE: 'delete',
   ADD: 'add',
@@ -69,13 +67,6 @@ export const MENUS_CONFIG_MAP = {
       text: 'Bold',
       ariaLabel: 'bold',
       type: TEXT_STYLE_MAP.BOLD
-    },
-    {
-      id: UNDERLINE,
-      iconClass: 'sdocfont sdoc-underline',
-      text: 'Underline',
-      ariaLabel: 'underline',
-      type: TEXT_STYLE_MAP.UNDERLINE
     },
     {
       id: TEXT_LINK,

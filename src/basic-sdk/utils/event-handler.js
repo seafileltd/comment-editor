@@ -69,11 +69,6 @@ class EventProxy {
       editor.handleTab && editor.handleTab(event);
     }
 
-    const node = getSelectedNodeByType(editor, ELEMENT_TYPE.TABLE);
-    if (node) {
-      this.editor.tableOnKeyDown(event);
-    }
-
     const imageNode = getSelectedNodeByType(editor, ELEMENT_TYPE.IMAGE);
     if (imageNode) {
       this.editor.imageOnKeyDown(event);

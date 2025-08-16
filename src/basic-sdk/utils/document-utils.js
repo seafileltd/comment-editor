@@ -44,11 +44,3 @@ export const getSlateFragmentAttribute = (dataTransfer) => {
   const [, fragment] = htmlData.match(catchSlateFragment) || [];
   return fragment;
 };
-
-// patch: update children to elements
-export const formatSdocContent = (content) => {
-  return {
-    ...content,
-    ...(!content.elements && { elements: content.children })
-  };
-};

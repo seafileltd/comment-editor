@@ -4,14 +4,10 @@ import {
   IMAGE,
   LINK,
   PARAGRAPH,
-  TABLE,
   LIST_ITEM,
   ORDERED_LIST,
   UNORDERED_LIST,
   CHECK_LIST_ITEM,
-  CODE_LINE,
-  TABLE_ROW,
-  TABLE_CELL,
 } from '../../extension/constants/element-type';
 import { generateDefaultText } from '../../extension/core';
 import deserializeHtml from '../html-to-slate';
@@ -230,36 +226,6 @@ export const transformList = (node) => {
     return transformUnorderedList(node);
   }
   return transformCheckList(node);
-};
-
-export const transformTableCell = (cell, align) => {
-  return {
-    id: slugid.nice(),
-    type: TABLE_CELL,
-    children: transformNodeWithInlineChildren(cell),
-  };
-};
-
-export const transformTableRow = (row) => {
-  const { children: cells } = row;
-  return {
-    id: slugid.nice(),
-    type: TABLE_ROW,
-    children: cells.map(cell => transformTableCell(cell)),
-  };
-};
-
-export const transformCodeLine = (text) => {
-  return {
-    id: slugid.nice(),
-    type: CODE_LINE,
-    children: [
-      {
-        id: slugid.nice(),
-        text: text,
-      }
-    ]
-  };
 };
 
 export const transformHr = (node) => {

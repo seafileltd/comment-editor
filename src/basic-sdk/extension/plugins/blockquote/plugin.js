@@ -1,5 +1,5 @@
 import { Editor, Element, Transforms, Node, Path, Range } from '@seafile/slate';
-import { BLOCKQUOTE, PARAGRAPH, TABLE, HEADER1, HEADER2, HEADER3, HEADER4, HEADER5, HEADER6, TITLE, SUBTITLE } from '../../constants';
+import { BLOCKQUOTE, PARAGRAPH, HEADER1 } from '../../constants';
 import { generateDefaultText, getSelectedNodeByType, getSelectedNodeEntryByType, isSelectionAtBlockStart, isContainsVoidElement, isMiddlePoint } from '../../core';
 import { getFormattedElements, getFormattedRestElements } from './helpers';
 
@@ -18,7 +18,7 @@ const withBlockquote = (editor) => {
     if (!quoteBlockEntry) return insertBreak();
 
     const [currentLineEntry] = Editor.nodes(newEditor, {
-      match: n => Element.isElement(n) && [PARAGRAPH, HEADER1, HEADER2, HEADER3, HEADER4, HEADER5, HEADER6, TITLE, SUBTITLE].includes(n.type),
+      match: n => Element.isElement(n) && [PARAGRAPH, HEADER1].includes(n.type),
       mode: 'lowest',
     });
 

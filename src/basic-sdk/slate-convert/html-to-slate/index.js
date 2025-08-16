@@ -104,7 +104,6 @@ const formatElementNodes = (nodes) => {
 
     // The following types will not appear individually during the pasting process
     // code_line
-    // table_row | table_cell
 
     // text | image | link
     if (!node.type || INLINE_LEVEL_TYPES.includes(node.type)) {

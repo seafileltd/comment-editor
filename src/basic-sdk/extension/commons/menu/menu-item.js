@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Tooltip from '../../../components/tooltip';
-import { SDOC_LINK } from '../../constants';
 
 const MenuItem = ({
   isRichEditor = true,
@@ -45,12 +44,6 @@ const MenuItem = ({
         onClick={onClick}
       >
         <i className={iconClass} />
-        {type === SDOC_LINK && (
-          <span className='sdoc-link-menu-item'>
-            <span>{t(text)}</span>
-            <i className="sdocfont sdoc-drop-down" />
-          </span>
-        )}
       </button>
       <Tooltip target={id}>
         {t(text)}

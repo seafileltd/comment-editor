@@ -1,5 +1,5 @@
 import { Transforms, Editor, Path, Element } from '@seafile/slate';
-import { PARAGRAPH, GROUP } from '../../../constants';
+import { PARAGRAPH } from '../../../constants';
 import { getChildren, getDeepInlineChildren, match } from '../../../core';
 import { generateEmptyListContent } from '../model';
 import { getListTypes } from '../queries';
@@ -11,7 +11,6 @@ export const normalizeListItem = (editor, { listItem }) => {
   const validLiChildrenTypes = [
     ...getListTypes(),
     PARAGRAPH,
-    GROUP,
   ];
   const [, liPath] = listItem;
   const liChildren = getChildren(listItem);

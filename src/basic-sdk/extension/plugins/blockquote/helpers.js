@@ -1,7 +1,7 @@
 import { Editor, Transforms, Element, Node } from '@seafile/slate';
 import slugid from 'slugid';
-import { BLOCKQUOTE, CHECK_LIST_ITEM, IMAGE, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST, TABLE, CALL_OUT, MULTI_COLUMN } from '../../constants';
-import { focusEditor, getNodeType, getSelectedNodeEntryByType } from '../../core';
+import { BLOCKQUOTE, CHECK_LIST_ITEM, IMAGE, ORDERED_LIST, PARAGRAPH, UNORDERED_LIST } from '../../constants';
+import { focusEditor, getNodeType } from '../../core';
 
 export const isMenuDisabled = (editor, readonly) => {
   if (readonly) return true;
@@ -53,45 +53,18 @@ export const setBlockQuoteType = (editor, active) => {
       id: slugid.nice(),
       type: BLOCKQUOTE,
     };
-    // Insert block quote into column node if in multi_column node
-    const currentMultiColumnEntry = getSelectedNodeEntryByType(editor, MULTI_COLUMN);
-    if (currentMultiColumnEntry) {
-      Transforms.wrapNodes(editor, blockquoteNode, {
-        mode: 'lowest',
-        match: n => {
-          if (n.type === CALL_OUT) return false;
-          return Element.isElement(n) && Editor.isBlock(editor, n);
-        }
-      });
-      return;
-    }
 
     Transforms.wrapNodes(editor, blockquoteNode, {
       mode: 'highest',
       match: n => {
-        if (n.type === CALL_OUT) return false;
         return Element.isElement(n) && Editor.isBlock(editor, n);
       },
     });
   } else {
-    const currentMultiColumnEntry = getSelectedNodeEntryByType(editor, MULTI_COLUMN);
-    if (currentMultiColumnEntry) {
-      const blockquoteEntry = Editor.above(editor, {
-        at: editor.selection.anchor.path,
-        match: (n) => n.type === BLOCKQUOTE,
-      });
-      blockquoteEntry && Transforms.unwrapNodes(editor, {
-        mode: 'highest',
-        at: blockquoteEntry[1],
-        match: (n) => n.type === BLOCKQUOTE,
-      });
-      return;
-    }
 
     Transforms.unwrapNodes(editor, {
       mode: 'highest',
       match: (n) => {
-        if (n.type === CALL_OUT) return false;
         return Element.isElement(n) && Editor.isBlock(editor, n);
       },
     });

@@ -1,11 +1,11 @@
 import { Element, Transforms, Path } from '@seafile/slate';
-import { LIST_ITEM, GROUP } from '../../../constants';
+import { LIST_ITEM } from '../../../constants';
 import { getChildren, getNode, getPreviousPath, match } from '../../../core';
 import { generateEmptyListItem } from '../model';
 import { getListTypes } from '../queries';
 import { moveListItemsToList, normalizeListItem, normalizeNestedList } from '../transforms';
 
-const validChildrenTypes = [GROUP, LIST_ITEM];
+const validChildrenTypes = [LIST_ITEM];
 
 export const normalizeList = (editor) => {
   const { normalizeNode } = editor;

@@ -13,7 +13,6 @@ import withNodeId from './node-id';
 import { mdStringToSlate, slateToMdString, deserializeHtml, processor } from './slate-convert';
 import { isMac } from './utils/common-utils';
 import EventBus from './utils/event-bus';
-import LocalStorage from './utils/local-storage-utils';
 
 
 export {
@@ -40,7 +39,6 @@ export {
   processor, // md string to html
   deserializeHtml, // html -> slate notes
   isMac,
-  LocalStorage,
   context,
   withNodeId,
 };

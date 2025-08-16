@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import Tooltip from '../../../../components/tooltip';
 import { ElementPopover } from '../../../commons';
-import { MENUS_CONFIG_MAP, TEXT_ALIGN, PARAGRAPH, IMAGE_BLOCK, TABLE, BLOCKQUOTE, CALL_OUT, MULTI_COLUMN } from '../../../constants';
+import { MENUS_CONFIG_MAP, TEXT_ALIGN, PARAGRAPH, IMAGE_BLOCK, BLOCKQUOTE } from '../../../constants';
 import { generateEmptyElement } from '../../../core';
 import { IMAGE_DISPLAY_TYPE, IMAGE_BORDER_TYPE } from '../constants';
 import ImagePreviewer from '../dialogs/image-previewer';
@@ -126,7 +126,7 @@ const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageC
     <ElementPopover>
       <div className="sdoc-image-hover-menu-container" style={menuPosition}>
         <div className='hover-menu-container'>
-          {![TABLE, BLOCKQUOTE, CALL_OUT, MULTI_COLUMN].includes(type) && !readonly && (
+          {![BLOCKQUOTE].includes(type) && !readonly && (
             <span className='op-group-item'>
               <span
                 role="button"

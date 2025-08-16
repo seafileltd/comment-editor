@@ -1,6 +1,6 @@
 import { Editor, Transforms, Range } from '@seafile/slate';
 import { COMMENT_EDITOR } from '../../../constants';
-import { HEADER1, HEADER2, HEADER3, HEADER4, HEADER5, HEADER6, UNORDERED_LIST, BLOCKQUOTE, TEXT_STYLE_MAP, PARAGRAPH } from '../../constants';
+import { HEADER1, UNORDERED_LIST, BLOCKQUOTE, TEXT_STYLE_MAP, PARAGRAPH } from '../../constants';
 import { getSelectedNodeByType } from '../../core';
 import { setBlockQuoteType } from '../blockquote/helpers';
 import { toggleList } from '../list/transforms';
@@ -8,11 +8,6 @@ import { toggleList } from '../list/transforms';
 // Title shortcut
 const TITLE_SHORT_CUT = {
   '#': HEADER1,
-  '##': HEADER2,
-  '###': HEADER3,
-  '####': HEADER4,
-  '#####': HEADER5,
-  '######': HEADER6,
 };
 
 // List shortcut

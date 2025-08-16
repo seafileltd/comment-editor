@@ -1,6 +1,6 @@
 import { Editor, Text, Path, Span, Element, Node, Range } from '@seafile/slate';
 import { ReactEditor } from '@seafile/slate-react';
-import { CODE_LINE, LIST_ITEM, IMAGE } from '../../constants';
+import { LIST_ITEM, IMAGE } from '../../constants';
 import { match } from '../utils';
 
 // options
@@ -463,10 +463,6 @@ export const isSelectionAtBlockStart = (editor, options) => {
 
   const nodeEntry = getAboveBlockNode(editor, options);
   let path = nodeEntry?.[1];
-
-  if (nodeEntry?.[0].type === CODE_LINE) {
-    path = [path[0]];
-  }
 
   if (!path) return false;
 

@@ -1,27 +1,8 @@
 /** @jsx jsx */
-import { jsx, createSdocEditor, formatChildren } from '../../../core';
 import { MarkDownPlugin } from '../../../../src/basic-sdk/extension/plugins';
+import { jsx, createSdocEditor, formatChildren } from '../../../core';
 
 describe('toggle code-block test', () => {
-  it('header', () => {
-    const input = (
-      <editor>
-        <hp><htext><cursor />aaa</htext></hp>
-      </editor>
-    );
-
-    const output = (
-      <editor>
-        <hh2><htext>aaa</htext></hh2>
-      </editor>
-    );
-
-    const plugins = [MarkDownPlugin.editorPlugin];
-    const editor = createSdocEditor(input, plugins);
-    editor.insertText('##');
-    editor.insertText(' ');
-    expect(formatChildren(editor.children)).toEqual(formatChildren(output.children));
-  });
 
   it('blockquote', () => {
     const input = (

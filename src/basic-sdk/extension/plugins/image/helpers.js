@@ -5,7 +5,7 @@ import urlJoin from 'url-join';
 import { COMMENT_EDITOR, INTERNAL_EVENT } from '../../../constants';
 import context from '../../../context';
 import EventBus from '../../../utils/event-bus';
-import { ELEMENT_TYPE, IMAGE, IMAGE_BLOCK, INSERT_POSITION, PARAGRAPH, SUBTITLE, TITLE, LIST_ITEM, CHECK_LIST_ITEM, BLOCKQUOTE, CALL_OUT } from '../../constants';
+import { ELEMENT_TYPE, IMAGE, IMAGE_BLOCK, INSERT_POSITION, PARAGRAPH, LIST_ITEM, CHECK_LIST_ITEM, BLOCKQUOTE } from '../../constants';
 import { generateEmptyElement, getNodeType, isTextNode, getParentNode, focusEditor, getAboveBlockNode, generateDefaultParagraph } from '../../core';
 import base64ToUnit8Array from './base64-to-unit8array';
 import ImageCache from './image-cache';
@@ -40,8 +40,6 @@ export const isInsertImageMenuDisabled = (editor, readonly) => {
       }
 
       if (type.startsWith('header')) return true;
-      if (type === TITLE) return true;
-      if (type === SUBTITLE) return true;
       if (type === LIST_ITEM) return true;
       if (type === CHECK_LIST_ITEM) return true;
       if (Editor.isVoid(editor, n)) return true;
@@ -98,10 +96,10 @@ export const insertImage = (editor, imgInfos, selection, position = INSERT_POSIT
     const imageNode = imageNodes[0];
     Transforms.insertNodes(editor, imageNode, { at: validSelection });
 
-    // BLOCKQUOTE and CALL_OUT use inline images
+    // BLOCKQUOTE use inline images
     let imageType = IMAGE_BLOCK;
     const [topNode,] = Editor.node(editor, [aboveNodeEntry[1][0]]);
-    if ([BLOCKQUOTE, CALL_OUT].includes(topNode?.type)) {
+    if ([BLOCKQUOTE].includes(topNode?.type)) {
       imageType = '';
     }
 

@@ -5,9 +5,9 @@ import context from '../../../context';
 import { getErrorMsg } from '../../../utils/common-utils';
 import { getSlateFragmentAttribute } from '../../../utils/document-utils';
 import EventBus from '../../../utils/event-bus';
-import { INSERT_POSITION, CLIPBOARD_FORMAT_KEY, CLIPBOARD_ORIGIN_SDOC_KEY, IMAGE, IMAGE_BLOCK, PARAGRAPH, ELEMENT_TYPE, MULTI_COLUMN, CALL_OUT, BLOCKQUOTE } from '../../constants';
-import { focusEditor, generateEmptyElement, getLastChildPath, getSelectedNodeEntryByType, isFirstChild, isSelectionAtBlockStart, isEmptyArticle, getNode } from '../../core';
-import { insertImage, hasSdocImages, getImageData, queryCopyMoveProgressView, resetCursor, isInsertImageMenuDisabled, getSingleImageFromFragment, removeImageBlockNode, generateImageInfos } from './helpers';
+import { INSERT_POSITION, CLIPBOARD_FORMAT_KEY, CLIPBOARD_ORIGIN_SDOC_KEY, IMAGE, IMAGE_BLOCK, PARAGRAPH, ELEMENT_TYPE } from '../../constants';
+import { focusEditor, generateEmptyElement, getLastChildPath, getSelectedNodeEntryByType, isFirstChild, isSelectionAtBlockStart, isEmptyArticle } from '../../core';
+import { insertImage, hasSdocImages, getImageData, queryCopyMoveProgressView, resetCursor, isInsertImageMenuDisabled, getSingleImageFromFragment, generateImageInfos } from './helpers';
 
 const withImage = (editor) => {
   const { isInline, isVoid, insertData, deleteBackward, insertFragment, insertBreak } = editor;
@@ -163,19 +163,6 @@ const withImage = (editor) => {
       const path = selection.anchor.path;
       const deletePath = [path[0]];
 
-      // Delete image_block element in multi-column node
-      const currentTopNode = getNode(editor, deletePath);
-      const currentBlockNode = getNode(editor, path.slice(0, 3));
-      // Image_block not in callout or blockquote
-      if (currentTopNode.type === MULTI_COLUMN && ![CALL_OUT, BLOCKQUOTE].includes(currentBlockNode.type)) {
-        removeImageBlockNode(editor, path.slice(0, 3));
-        return;
-      }
-      // Image_block in callout or blockquote
-      if (currentTopNode.type === MULTI_COLUMN && [CALL_OUT, BLOCKQUOTE].includes(currentBlockNode.type)) {
-        removeImageBlockNode(editor, path.slice(0, 4));
-        return;
-      }
       Transforms.removeNodes(editor, { at: deletePath });
 
       if (isEmptyArticle(editor)) {
