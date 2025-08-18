@@ -62,6 +62,11 @@ class Context {
     return this.api.addParticipants(docUuid, emails);
   }
 
+  getFileUrlByUuid = (docUuid) => {
+    const sdocServer = this.getSetting('serviceUrl');
+    return sdocServer + '/api/v2.1/seadoc/file/' + docUuid + '/?doc_uuid=' + docUuid;
+  };
+
 }
 
 const context = new Context();

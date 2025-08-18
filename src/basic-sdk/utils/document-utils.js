@@ -1,6 +1,6 @@
 import deepCopy from 'deep-copy';
 import context from '../context';
-import { CLIPBOARD_ORIGIN_SDOC_KEY } from '../extension/constants';
+import { CLIPBOARD_ORIGIN_SDOC_KEY, LINK } from '../extension/constants';
 import { generateDefaultText } from '../extension/core/utils/index';
 import ObjectUtils from './object-utils';
 
@@ -29,6 +29,13 @@ export const normalizeChildren = (children) => {
 export const normalizeCopyNodes = (editor, elements) => {
   if (!Array.isArray(elements) || elements.length === 0) return [];
   return elements.map(element => {
+    element.children.forEach(child => {
+      const { type, doc_uuid } = child;
+      if (['sdoc_link', 'file_link'].includes(type)) {
+        child['type'] = LINK;
+        child['href'] = context.getFileUrlByUuid(doc_uuid);
+      }
+    });
     return element;
   });
 };
