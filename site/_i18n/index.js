@@ -13,8 +13,8 @@ i18n
   .init({
     lng: lang,
     fallbackLng: 'en',
-    ns: ['sdoc-editor'],
-    defaultNS: 'sdoc-editor',
+    ns: ['comment-editor'],
+    defaultNS: 'comment-editor',
 
     debug: false, // console log if debug: true
 

@@ -16,7 +16,7 @@ const MenuItem = ({
   text,
   ariaLabel
 }) => {
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
 
   const onClick = useCallback((event) => {
     if (disabled) return;

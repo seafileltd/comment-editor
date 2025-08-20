@@ -23,7 +23,7 @@ const propTypes = {
 };
 
 const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageCaptionInputRef, onHideImageHoverMenu, readonly }) => {
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   const { data, border_type = IMAGE_BORDER_TYPE[0].type } = element;
   const { align = 'left', type } = parentNodeEntry[0];
   const { show_caption = false } = data;

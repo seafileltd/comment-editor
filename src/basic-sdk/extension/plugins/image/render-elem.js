@@ -17,7 +17,7 @@ import useCopyImage from './use-copy-image';
 import useUploadImage from './use-upload-image';
 
 const Image = ({ element, editor, style, className, attributes, children, isSelected }) => {
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   const { data, border_type = IMAGE_BORDER_TYPE[0].type } = element;
   const { show_caption = false, column_key } = data;
   const path = ReactEditor.findPath(editor, element);

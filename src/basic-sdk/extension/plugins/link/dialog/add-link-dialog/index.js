@@ -7,7 +7,7 @@ import { insertLink, updateLink, checkLink } from '../../helpers';
 
 
 const AddLinkDialog = ({ editor, className, element, insertPosition, slateNode, closeDialog, linkTitle, handleSubmit }) => {
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
   const [titleErrorMessage, setTitleErrorMessage] = useState('');
   const { title: oldTitle, href: oldURL } = element || { title: linkTitle || '', href: '' };

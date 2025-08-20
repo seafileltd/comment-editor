@@ -11,7 +11,7 @@ import { isInsertImageMenuDisabled } from '../helpers';
 const ImageMenu = ({ editor, readonly, eventBus, isRichEditor, className }) => {
   const disabled = isInsertImageMenuDisabled(editor, readonly);
   const menuConfig = MENUS_CONFIG_MAP[IMAGE];
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
 
   const openInsertLocalImage = useCallback(() => {
     eventBus.dispatch(INTERNAL_EVENT.INSERT_ELEMENT, { type: LOCAL_IMAGE, editor });

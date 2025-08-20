@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const Placeholder = (props) => {
   const { title, top = 5 } = props;
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   return (
     <span contentEditable="false" suppressContentEditableWarning style={{
       position: 'absolute',

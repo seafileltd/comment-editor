@@ -43,7 +43,7 @@ const CommentEditor = ({
   closePanel,
 }) => {
   const commentWrapperRef = useRef();
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   const { className, userInfo, type } = useComment();
   const submitTip = useMemo(() => getSubmitTip(type, content), [content, type]);
 
@@ -225,10 +225,10 @@ const CommentEditor = ({
             <ScrollContext.Provider value={{ scrollRef: commentEditorContainerRef }}>
               <Slate editor={editor} value={slateValue} onChange={setSlateValue}>
                 <Editable
-                  id='sdoc-editor'
+                  id='comment-editor'
                   scrollSelectionIntoView={handleScrollIntoView}
                   cursors={cursors}
-                  renderElement={(props) => RenderCommentEditorCustomRenderElement({ ...props, commentType: type, placeholder })}
+                  renderElement={(props) => RenderCommentEditorCustomRenderElement({ ...props, commentType: type })}
                   renderLeaf={renderLeaf}
                   onMouseDown={onMouseDown}
                   decorate={decorate}

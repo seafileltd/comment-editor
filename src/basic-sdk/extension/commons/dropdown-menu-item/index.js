@@ -8,7 +8,7 @@ import './index.css';
 
 const DropdownMenuItem = forwardRef((props, ref) => {
   const { disabled, onClick, menuConfig, children, className, shortcut, isHidden } = props;
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
   const { iconClass } = menuConfig;
   const [isShowChildren, setShowChildren] = useState(false);
 

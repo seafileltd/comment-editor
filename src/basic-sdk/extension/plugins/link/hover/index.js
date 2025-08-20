@@ -9,7 +9,7 @@ import './index.css';
 
 const LinkHover = ({ editor, element, menuPosition, onDeleteLink, onEditLink }) => {
   const readOnly = useReadOnly();
-  const { t } = useTranslation('sdoc-editor');
+  const { t } = useTranslation('comment-editor');
 
   const onMouseDown = useCallback((event) => {
     event.stopPropagation();
