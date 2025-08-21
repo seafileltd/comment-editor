@@ -1,6 +1,6 @@
 {
   "name": "@seafile/comment-editor",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "description": "This is a comment editor",
   "main": "dist/index.js",
