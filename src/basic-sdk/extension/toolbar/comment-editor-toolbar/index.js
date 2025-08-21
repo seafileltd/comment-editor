@@ -17,7 +17,7 @@ const CommentEditorToolbar = ({ editor, readonly = false, onSubmit, submitBtnTex
   return (
     <div className='comment-editor-toolbar' style={{ justifyContent: toolMenus.length === 0 ? 'end' : '' }}>
       {toolMenus.length !== 0 && (
-        <MenuGroup className="menu-group comment-editor-menu-group">
+        <MenuGroup className="comment-editor-menu-group">
           {toolMenus.includes('text_style') && (<CommentEditorTextStyleMenuList editor={editor} readonly={readonly} />)}
           {toolMenus.includes(BLOCKQUOTE) && (<QuoteMenu editor={editor} readonly={readonly} />)}
           {toolMenus.includes(UNORDERED_LIST) && (<ListMenu editor={editor} type={UNORDERED_LIST} readonly={readonly}/>)}
