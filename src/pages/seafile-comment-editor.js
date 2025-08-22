@@ -36,7 +36,8 @@ const SeafileCommentEditor = ({
   useEffect(() => {
     context.init(settings, api);
     setI18n(getI18n(settings));
-  }, [api, settings]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
