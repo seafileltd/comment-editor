@@ -177,10 +177,10 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
   }, [data, editor]);
 
   const onImageLoaded = useCallback(() => {
-    if (isImageUrlIsFromCopy(data.src, data?.upload_from_dtable)) {
+    if (isImageUrlIsFromCopy(data.src, data?.is_upload)) {
       setCopyImageLoading(true);
     }
-  }, [data.src, data?.upload_from_dtable, setCopyImageLoading]);
+  }, [data.src, data?.is_upload, setCopyImageLoading]);
 
   const onImageLoadError = useCallback(() => {
     // Check is due to the image is pasted from the clipboard in base64

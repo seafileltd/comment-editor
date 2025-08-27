@@ -133,7 +133,7 @@ export const updateImage = (editor, data) => {
 };
 
 export const getImageURL = (data, editor) => {
-  const { src: url, column_key } = data;
+  const { src: url, is_upload, column_key } = data;
 
   if (column_key) {
     const column = getColumnByKey(editor.columns || [], column_key);
@@ -151,10 +151,10 @@ export const getImageURL = (data, editor) => {
   }
 
   // upload image | drag drop image | cut image
-  if (isImageUrlIsFromUpload(url)) return url;
+  if (isImageUrlIsFromUpload(url, is_upload)) return url;
 
   // copy from others doc
-  if (isImageUrlIsFromCopy(url)) return url;
+  if (isImageUrlIsFromCopy(url, is_upload)) return url;
 
   const serviceUrl = context.getSetting('serviceUrl');
   const assetsUrl = context.getSetting('assetsUrl');
@@ -253,14 +253,15 @@ export const handleBase64Image = (editor, path, imgData) => {
   });
 };
 
-export const isImageUrlIsFromCopy = (url, uploadFromDtable) => {
-  if (uploadFromDtable) return false;
+export const isImageUrlIsFromCopy = (url, is_upload) => {
+  if (is_upload) return false;
   if (url && url.startsWith('http')) return true;
   if (url && url.startsWith('attachment')) return true; // from yuque
   return false;
 };
 
-export const isImageUrlIsFromUpload = (url) => {
+export const isImageUrlIsFromUpload = (url, is_upload) => {
+  if (url && is_upload) return true;
   if (url && url.startsWith('blob:http')) return true;
   return false;
 };

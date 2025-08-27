@@ -17,9 +17,9 @@ const useCopyImage = ({ editor, element }) => {
   const [isCopyError, setIsCopyError] = useState(is_copy_error);
 
   useEffect(() => {
-    const { src: url } = data;
+    const { src: url, is_upload } = data;
     if (isCopyError) return;
-    if (!isImageUrlIsFromCopy(url)) return;
+    if (!isImageUrlIsFromCopy(url, is_upload)) return;
 
     const downloadAndUploadImages = async (url) => {
       try {

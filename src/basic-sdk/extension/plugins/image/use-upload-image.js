@@ -5,10 +5,9 @@ import context from '../../../context';
 import { isImageUrlIsFromUpload } from './helpers';
 import ImageCache from './image-cache';
 
-const updateImageNode = async (editor, element, newUrl, uploadFromDtable) => {
+const updateImageNode = async (editor, element, newUrl) => {
   const nodePath = ReactEditor.findPath(editor, element);
-  const newData = { src: newUrl };
-  uploadFromDtable && (newData['upload_from_dtable'] = true);
+  const newData = { src: newUrl, is_upload: true };
   Transforms.setNodes(editor, { data: newData }, { at: nodePath });
 };
 
@@ -27,8 +26,7 @@ const useUploadImage = ({ editor, element }) => {
         const fileItem = ImageCache.getImage(file_uuid);
         const imageUrl = await context.api.uploadLocalImage([fileItem]);
         if (imageUrl && imageUrl[0]) {
-          const uploadFromDtable = imageUrl?.upload_from_dtable ? true : false;
-          updateImageNode(editor, element, imageUrl[0], uploadFromDtable);
+          updateImageNode(editor, element, imageUrl[0]);
         }
       } catch (error) {
         console.error(error.message);
