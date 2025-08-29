@@ -19,7 +19,7 @@
 }
 
 .comment-editor-wrapper .comment-editor-content:focus-within {
- border-color: #ff8e03;
+  border-color: #ff8e03;
 }
 
 /* comment-editor */
@@ -34,6 +34,7 @@
   overflow-x: hidden;
   border: none;
   background-color: transparent;
+  display: block;
 }
 
 .comment-editor-wrapper .comment-editor-content .article.comment-editor :first-child {
