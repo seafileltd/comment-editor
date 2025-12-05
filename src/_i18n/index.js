@@ -10,7 +10,7 @@ export const getI18n = (settings) => {
   if (settings) {
     const { lang: propsLang, mediaUrl } = settings;
     if (mediaUrl) {
-      loadPath = `${mediaUrl}/locales/{{ lng }}/{{ ns }}.json`;
+      loadPath = `${mediaUrl}locales/{{ lng }}/{{ ns }}.json`;
     }
     if (propsLang) {
       lang = propsLang;
