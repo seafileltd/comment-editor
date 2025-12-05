@@ -26,7 +26,7 @@ class App extends React.Component {
       insertContent: () => {},
       hiddenComment: () => {},
       onContentChange: () => {},
-      api: {}
+      api: {},
     };
   }
 

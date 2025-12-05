@@ -14,6 +14,7 @@ export const getI18n = (settings) => {
     }
     if (propsLang) {
       lang = propsLang === 'zh-cn' ? 'zh-CN' : lang;
+      lang = propsLang === 'zh' ? 'zh-CN' : lang;
     }
   }
 
@@ -38,6 +39,8 @@ export const getI18n = (settings) => {
       interpolation: {
         escapeValue: false, // not needed for react!!
       },
+
+      load: 'currentOnly',
 
       react: {
         wait: true
