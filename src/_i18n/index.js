@@ -13,7 +13,7 @@ export const getI18n = (settings) => {
       loadPath = `${mediaUrl}locales/{{ lng }}/{{ ns }}.json`;
     }
     if (propsLang) {
-      lang = propsLang;
+      lang = propsLang === 'zh-cn' ? 'zh-CN' : lang;
     }
   }
 
@@ -29,7 +29,7 @@ export const getI18n = (settings) => {
 
       debug: false, // console log if debug: true
 
-      whitelist: ['en', 'zh_CN', 'fr', 'de', 'cs', 'es', 'es-AR', 'es-MX', 'ru'],
+      whitelist: ['en', 'zh-CN', 'fr', 'de', 'cs', 'es', 'es-AR', 'es-MX', 'ru'],
 
       backend: {
         loadPath,
