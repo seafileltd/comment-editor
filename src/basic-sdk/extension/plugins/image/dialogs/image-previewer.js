@@ -2,6 +2,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import Lightbox from '@seafile/react-image-lightbox';
 import PropTypes from 'prop-types';
+import { isMac } from '../../../../utils/common-utils';
 import { getImageURL } from '../helpers';
 
 import '@seafile/react-image-lightbox/style.css';
@@ -60,6 +61,7 @@ class ImagePreviewer extends React.Component {
     const { t } = this.props;
     const imageItemsLength = this.images.length;
     const mainSrc = this.images[imageIndex] || '';
+    const shortcutMain = isMac() ? '⌘' : 'Ctrl';
     let imageTitle = '';
     try {
       imageTitle = mainSrc ? decodeURI(mainSrc.slice(mainSrc.lastIndexOf('/') + 1)) : '';
@@ -91,8 +93,8 @@ class ImagePreviewer extends React.Component {
         reactModalProps={{
           shouldReturnFocusAfterClose: false,
         }}
-        zoomInTip={t('Enlarge: ⌘ + Wheel')}
-        zoomOutTip={t('Shrink: ⌘ + Wheel')}
+        zoomInTip={t(`Enlarge: ${shortcutMain} + Wheel`)}
+        zoomOutTip={t(`Shrink: ${shortcutMain} + Wheel`)}
       />
     );
   }

@@ -636,5 +636,7 @@
   "Comment_list": "Comment list",
   "Add_Comment": "Add Comment",
   "Enlarge: ⌘ + Wheel": "Enlarge: ⌘ + Wheel",
-  "Shrink: ⌘ + Wheel": "Shrink: ⌘ + Wheel"
+  "Enlarge: Ctrl + Wheel": "Enlarge: Ctrl + Wheel",
+  "Shrink: ⌘ + Wheel": "Shrink: ⌘ + Wheel",
+  "Shrink: Ctrl + Wheel": "Shrink: Ctrl + Wheel"
 }
