@@ -635,6 +635,6 @@
   "Property": "Property",
   "Comment_list": "Comment list",
   "Add_Comment": "Add Comment",
-  "Enlarge: {Ctrl} + Wheel": "Enlarge: {Ctrl} + Wheel",
-  "Shrink: {Ctrl} + Wheel": "Shrink: {Ctrl} + Wheel"
+  "Zoom_in": "Zoom in",
+  "Zoom_out": "Zoom out"
 }
