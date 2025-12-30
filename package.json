@@ -1,11 +1,11 @@
 {
   "name": "@seafile/comment-editor",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": false,
   "description": "This is a comment editor",
   "main": "dist/index.js",
   "dependencies": {
-    "@seafile/react-image-lightbox": "^5.0.2",
+    "@seafile/react-image-lightbox": "^5.0.4",
     "@seafile/slate": "0.91.8",
     "@seafile/slate-history": "0.86.2",
     "@seafile/slate-hyperscript": "0.81.7",
