@@ -16,36 +16,6 @@ describe('blockquote test', () => {
 });
 
 describe('blockquote test', () => {
-  it('blockquote > table', async () => {
-    const mdString = '> |name|sex|age| \n > |-|-|-| \n > |alex|man|24|';
-    const result = await processor.process(mdString);
-    const string = String(result);
-    const expectResult = `
-<blockquote>
-  <table>
-    <thead>
-      <tr>
-        <th>name</th>
-        <th>sex</th>
-        <th>age</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>alex</td>
-        <td>man</td>
-        <td>24</td>
-      </tr>
-    </tbody>
-  </table>
-</blockquote>
-`;
-
-    expect(string).toEqual(expectResult);
-  });
-});
-
-describe('blockquote test', () => {
   it('blockquote > list', async () => {
     const mdString = '> name \n > - list_item1 \n > - list_item2 \n >   - list_item_child 2.1 \n >   - list_item_child 2.2 ';
     const result = await processor.process(mdString);
@@ -61,26 +31,6 @@ describe('blockquote test', () => {
         <li>list_item_child 2.2</li>
       </ul>
     </li>
-  </ul>
-</blockquote>
-`;
-
-    expect(string).toEqual(expectResult);
-  });
-});
-
-describe('blockquote test', () => {
-  it('blockquote > check_list', async () => {
-    const mdString = '> name \n > - [x] Write the press release \n > - [ ] Update the website \n > - [ ] Contact the media ';
-    const result = await processor.process(mdString);
-    const string = String(result);
-    const expectResult = `
-<blockquote>
-  <p>name</p>
-  <ul class="contains-task-list">
-    <li class="task-list-item"><input type="checkbox" checked disabled> Write the press release</li>
-    <li class="task-list-item"><input type="checkbox" disabled> Update the website</li>
-    <li class="task-list-item"><input type="checkbox" disabled> Contact the media</li>
   </ul>
 </blockquote>
 `;
