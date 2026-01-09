@@ -43,7 +43,8 @@ export const getI18n = (settings) => {
       load: 'currentOnly',
 
       react: {
-        wait: true
+        wait: true,
+        useSuspense: false,
       }
     });
   return i18n;
