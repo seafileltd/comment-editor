@@ -99,9 +99,9 @@
   margin-right: 10px;
 }
 
-.sdoc-dropdown-menu .sdoc-dropdown-item-right-icon {
-  color: #999;
-  transform: scale(.8);
+.sdoc-dropdown-menu .sdoc-arrow-right {
+  color: #666;
+  font-size: 12px !important;
 }
 
 .sdoc-dropdown-menu .sdoc-dropdown-item-with-left-icon {
@@ -110,8 +110,7 @@
 }
 
 .sdoc-dropdown-menu .sdoc-check-mark {
-  color: #798d99;
-  transform: scale(1);
+  color: #666;
 }
 
 /* sub menu */
