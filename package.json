@@ -1,11 +1,11 @@
 {
   "name": "@seafile/comment-editor",
-  "version": "0.0.20",
+  "version": "1.0.10",
   "private": false,
   "description": "This is a comment editor",
   "main": "dist/index.js",
   "dependencies": {
-    "@seafile/react-image-lightbox": "4.0.2",
+    "@seafile/react-image-lightbox": "^5.0.4",
     "@seafile/slate": "0.91.8",
     "@seafile/slate-history": "0.86.2",
     "@seafile/slate-hyperscript": "0.81.7",
@@ -14,7 +14,6 @@
     "classnames": "2.3.2",
     "copy-to-clipboard": "^3.3.3",
     "deep-copy": "1.4.2",
-    "dtable-ui-component": "^6.0.15",
     "is-hotkey": "0.2.0",
     "is-url": "^1.2.4",
     "react-transition-group": "4.4.5",

@@ -3,7 +3,6 @@ import context from '../context';
 import { User } from '../model';
 
 import '../assets/css/layout.css';
-import '../assets/css/default.css';
 import '../assets/css/sdoc-editor-article.css';
 import '../assets/css/sdoc-editor-plugins.css';
 import '../assets/css/sdoc-comment-editor-plugin.css';

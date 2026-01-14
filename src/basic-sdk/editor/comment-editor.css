@@ -99,7 +99,7 @@
   height: 100%;
   font-size: 0.75rem;
   border-radius: 0 !important;
-  color: #444;
+  color: #666;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,23 +111,23 @@
   line-height: 24px;
   margin-right: 8px;
   border: none !important;
-  color: #444;
+  color: #666;
   background-color: transparent;
 }
 
 .comment-editor-wrapper .comment-editor-toolbar .comment-editor-menu-group .comment-editor-menu-group-item:disabled {
-  color: #BDBDBD;
+  color: #C2C2C2;
 }
 
 .comment-editor-wrapper .comment-editor-toolbar .comment-editor-menu-group .comment-editor-menu-group-item:hover {
-  background-color: #F2F2F2;
+  background-color: #EFEFEF;
   border-radius: 2px;
 }
 
 .comment-editor-wrapper .comment-editor-toolbar .comment-editor-menu-group .comment-editor-menu-group-item[data-active='true'] {
-  color: #eb8205;
+  color: #ED7109;
 }
 
 .comment-editor-wrapper .comment-editor-toolbar .comment-editor-menu-group .comment-editor-menu-group-item .sdocfont {
-  font-size: 12px;
+  font-size: 14px;
 }

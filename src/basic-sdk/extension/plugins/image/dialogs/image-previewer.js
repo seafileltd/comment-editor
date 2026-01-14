@@ -1,4 +1,5 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import Lightbox from '@seafile/react-image-lightbox';
 import PropTypes from 'prop-types';
 import { getImageURL } from '../helpers';
@@ -50,8 +51,13 @@ class ImagePreviewer extends React.Component {
     }));
   };
 
+  setImageIndex = (index) => {
+    this.setState({ imageIndex: index });
+  };
+
   render() {
     const { imageIndex } = this.state;
+    const { t } = this.props;
     const imageItemsLength = this.images.length;
     const mainSrc = this.images[imageIndex] || '';
     let imageTitle = '';
@@ -70,6 +76,9 @@ class ImagePreviewer extends React.Component {
     );
     return (
       <Lightbox
+        imageItems={this.images}
+        currentIndex={imageIndex}
+        setImageIndex={index => this.setImageIndex(index)}
         wrapperClassName="sf-editor-image-previewer"
         imageTitle={imageTitleEl}
         mainSrc={mainSrc}
@@ -82,6 +91,8 @@ class ImagePreviewer extends React.Component {
         reactModalProps={{
           shouldReturnFocusAfterClose: false,
         }}
+        zoomInTip={t('Zoom_in')}
+        zoomOutTip={t('Zoom_out')}
       />
     );
   }
@@ -89,4 +100,4 @@ class ImagePreviewer extends React.Component {
 
 ImagePreviewer.propTypes = propTypes;
 
-export default ImagePreviewer;
+export default withTranslation('comment-editor')(ImagePreviewer);
