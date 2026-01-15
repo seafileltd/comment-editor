@@ -113,6 +113,7 @@
   border: none !important;
   color: #666;
   background-color: transparent;
+  padding-inline: 0;
 }
 
 .comment-editor-wrapper .comment-editor-toolbar .comment-editor-menu-group .comment-editor-menu-group-item:disabled {

@@ -243,7 +243,7 @@ const ImageHoverMenu = ({ editor, menuPosition, element, parentNodeEntry, imageC
           </div>
         )}
         {popoverState.borderPopover && (
-          <div className="sdoc-image-popover border-popover sdoc-dropdown-menu">
+          <div className={classnames('sdoc-image-popover border-popover sdoc-dropdown-menu', { 'sdoc-block-image': type === IMAGE_BLOCK })}>
             {IMAGE_BORDER_TYPE.map((item) => {
               return (
                 <div
