@@ -1,8 +1,6 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { I18nextProvider } from 'react-i18next';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
-import getI18n from '../_i18n';
 
 const SeafileCommentEditor = ({
   // Provider
@@ -31,46 +29,35 @@ const SeafileCommentEditor = ({
   settings,
   api,
 }) => {
-  const [i18n, setI18n] = useState(null);
 
   useEffect(() => {
     context.init(settings, api);
-    setI18n(getI18n(settings));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [settings, api]);
 
   return (
-    <>
-      {i18n && (
-        <I18nextProvider i18n={i18n}>
-          <Suspense>
-            <CommentProvider
-              type={type}
-              className={className}
-              pluginName={pluginName}
-              pluginEventBus={pluginEventBus}
-              pluginEvent={pluginEvent}
-              collaborators={collaborators}
-              participants={participants}
-              addParticipants={addParticipants}
-            >
-              <CommentEditor
-                content={content}
-                placeholder={placeholder}
-                toolMenus={toolMenus}
-                insertContent={insertContent}
-                onContentChange={onContentChange}
+    <CommentProvider
+      type={type}
+      className={className}
+      pluginName={pluginName}
+      pluginEventBus={pluginEventBus}
+      pluginEvent={pluginEvent}
+      collaborators={collaborators}
+      participants={participants}
+      addParticipants={addParticipants}
+    >
+      <CommentEditor
+        content={content}
+        placeholder={placeholder}
+        toolMenus={toolMenus}
+        insertContent={insertContent}
+        onContentChange={onContentChange}
 
-                hiddenComment={hiddenComment}
-                hiddenUserInfo={hiddenUserInfo}
-                closePanel={closePanel}
-              />
-            </CommentProvider>
-          </Suspense>
-        </I18nextProvider>
-      )}
-    </>
-  );
+        hiddenComment={hiddenComment}
+        hiddenUserInfo={hiddenUserInfo}
+        closePanel={closePanel}
+      />
+    </CommentProvider>
+  )
 };
 
 SeafileCommentEditor.propTypes = {
