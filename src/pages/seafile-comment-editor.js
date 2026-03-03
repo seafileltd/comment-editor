@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
 
@@ -29,10 +29,14 @@ const SeafileCommentEditor = ({
   settings,
   api,
 }) => {
+  const mountedRef = useRef(null);
 
   useEffect(() => {
     context.init(settings, api);
+    mountedRef.current = true;
   }, [settings, api]);
+
+  if (!mountedRef.current) return null;
 
   return (
     <CommentProvider
@@ -57,7 +61,7 @@ const SeafileCommentEditor = ({
         closePanel={closePanel}
       />
     </CommentProvider>
-  )
+  );
 };
 
 SeafileCommentEditor.propTypes = {
