@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CommentProvider, context, CommentEditor } from '@/basic-sdk';
 
@@ -29,14 +29,14 @@ const SeafileCommentEditor = ({
   settings,
   api,
 }) => {
-  const mountedRef = useRef(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     context.init(settings, api);
-    mountedRef.current = true;
+    setIsMounted(true);
   }, [settings, api]);
 
-  if (!mountedRef.current) return null;
+  if (!isMounted) return null;
 
   return (
     <CommentProvider
