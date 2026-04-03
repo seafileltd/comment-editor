@@ -1,6 +1,6 @@
 {
   "name": "@seafile/comment-editor",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "private": false,
   "description": "This is a comment editor",
   "main": "dist/index.js",
@@ -167,8 +167,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "overrides": {
-    "@xmldom/xmldom": "0.9.9"
   }
 }
