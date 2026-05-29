@@ -1,29 +1,22 @@
-.sdoc-tooltip {
+.comment-editor-tooltip {
   pointer-events: none;
 }
 
-.sdoc-tooltip .tooltip-inner {
-  font-weight: lighter;
+.comment-editor-tooltip .tooltip {
+  max-width: 242px;
+  opacity: 1;
+}
+
+.comment-editor-tooltip .tooltip-inner {
+  font-size: 14px;
   text-align: start;
   background-color: #303133;
+  border-radius: 4px;
+  padding: 4px 8px;
+  line-height: 20px;
+  font-weight: normal;
 }
 
-.sdoc-tooltip.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
-  border-bottom-color: #303133;
-}
-
-.sdoc-tooltip.bs-tooltip-auto[x-placement^="top"] {
+.comment-editor-tooltip.bs-tooltip-auto[data-popper-placement^="top"] {
   margin-bottom: -2px;
-}
-
-.sdoc-tooltip.bs-tooltip-auto[x-placement^="top"] .arrow::before {
-  border-top-color: #303133;
-}
-
-.sdoc-tooltip.bs-tooltip-auto[x-placement^="right"] .arrow::before {
-  border-right-color: #303133;
-}
-
-.sdoc-tooltip.bs-tooltip-auto[x-placement^="left"] .arrow::before {
-  border-left-color: #303133;
 }
