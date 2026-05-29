@@ -9,7 +9,7 @@ comment-editor/
   dist                      // 打包后的文件
   node_modules/             // 依赖第三方组件库
   public/                   // 公共资源文件库
-    index.html                 
+    index.html
     favicon.ico
   site(demo 模块, 基于组件库创建的测试模块)
     _i18n                   // 国际化模块
@@ -26,7 +26,7 @@ comment-editor/
     pages                   // 封装的视图组件
     index.js                // 组件库导出内容入口文件
   tests                     // 测试
-  webpack                   // site 打包文件   
+  webpack                   // site 打包文件
   config.js                 // site 打包配置文件
   dev-server.js             // site 后端服务器
   package.json
