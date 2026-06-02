@@ -48,7 +48,6 @@
 }
 
 .sdoc-image-hover-menu-container .hover-menu-container .sdocfont {
-  line-height: 1;
   font-size: 14px;
   color: #666;
 }
@@ -60,10 +59,10 @@
 .sdoc-image-hover-menu-container .sdoc-image-popover {
   position: absolute;
   top: 32px;
-  left: 0;
+  left: 0px;
   background-color: #fff;
   border: 1px solid #e5e6e8;
-  border-radius: 2px;
+  border-radius: 8px;
   box-shadow: 0 0 10px #ccc;
   display: flex;
   flex-direction: column;
@@ -72,8 +71,22 @@
   white-space: nowrap;
 }
 
+.sdoc-image-hover-menu-container .sdoc-image-popover .sdoc-dropdown-menu-container .sdoc-dropdown-menu-item {
+  padding: 4px 12px 4px 38px;
+}
+
+.sdoc-image-hover-menu-container .sdoc-image-popover .sdoc-dropdown-menu-container .sdoc-check-mark {
+  position: absolute;
+  left: 12px;
+  color: #666;
+}
+
 .sdoc-image-hover-menu-container .align-popover {
-  min-width: 6rem;
+  min-width: 80px;
+}
+
+.sdoc-image-hover-menu-container .align-popover .sdoc-dropdown-menu-container {
+  min-width: 80px;
 }
 
 .sdoc-image-hover-menu-container .border-popover {
@@ -82,11 +95,6 @@
   align-items: center;
   padding: 0 8px;
 }
-
-.sdoc-image-hover-menu-container .border-popover.sdoc-block-image {
-  left: 144px;
-}
-
 
 .sdoc-image-hover-menu-container .border-popover .sdoc-dropdown-menu-item .sdoc-dropdown-item-content .sdoc-check-mark {
   transform: translateX(-24px);
