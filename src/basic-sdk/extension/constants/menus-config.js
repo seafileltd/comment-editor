@@ -15,6 +15,9 @@ const TEXT_LINK = 'text_link';
 
 // text-align
 export const TEXT_ALIGN = 'text_align';
+const ALIGN_LEFT = 'align_left';
+const ALIGN_RIGHT = 'align_right';
+const ALIGN_CENTER = 'align_center';
 
 export const TEXT_STYLE_MAP = {
   BOLD: BOLD,
@@ -75,5 +78,22 @@ export const MENUS_CONFIG_MAP = {
       ariaLabel: 'link',
       type: TEXT_STYLE_MAP.LINK
     },
+  ],
+  [TEXT_ALIGN]: [
+    {
+      id: ALIGN_LEFT,
+      iconClass: 'sdocfont sdoc-align-left',
+      type: 'left'
+    },
+    {
+      id: ALIGN_CENTER,
+      iconClass: 'sdocfont sdoc-align-center',
+      type: 'center'
+    },
+    {
+      id: ALIGN_RIGHT,
+      iconClass: 'sdocfont sdoc-align-right',
+      type: 'right'
+    }
   ],
 };

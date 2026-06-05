@@ -7,6 +7,7 @@ import '../assets/css/sdoc-editor-article.css';
 import '../assets/css/sdoc-editor-plugins.css';
 import '../assets/css/sdoc-comment-editor-plugin.css';
 import '../assets/css/dropdown-menu.css';
+import '../assets/css/popover.css';
 
 const CommentContext = React.createContext(null);
 
