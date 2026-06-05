@@ -6,7 +6,8 @@
 }
 
 .sdoc-image-hover-menu-container .hover-menu-container {
-  height: 36px;
+  height: 40px;
+  padding: 8px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
