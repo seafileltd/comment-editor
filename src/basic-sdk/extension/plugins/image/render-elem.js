@@ -5,6 +5,7 @@ import { ReactEditor, useSelected, useReadOnly } from '@seafile/slate-react';
 import classNames from 'classnames';
 import imagePlaceholder from '../../../assets/images/image-placeholder.png';
 import { INTERNAL_EVENT } from '../../../constants';
+import { useComment } from '../../../hooks/use-comment';
 import { useScrollContext } from '../../../hooks/use-scroll-context';
 import EventBus from '../../../utils/event-bus';
 import { IMAGE_BLOCK } from '../../constants';
@@ -24,6 +25,7 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
   const nodeEntry = Editor.node(editor, [path[0]]);
   const imageStyle = { border: IMAGE_BORDER_TYPE.find((item) => item.type === border_type).value };
   const readOnly = useReadOnly();
+  const { pluginName } = useComment();
   const imageRef = useRef(null);
   const resizerRef = useRef(null);
   const imageCaptionInputRef = useRef(null);
@@ -165,9 +167,10 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
   }, []);
 
   const onClickImage = useCallback((e) => {
+    if (pluginName === 'dtable') return;
     setPosition();
     setIsShowImageHoverMenu(true);
-  }, [setPosition]);
+  }, [pluginName, setPosition]);
 
   const reloadImage = useCallback(() => {
     if (imageRef.current) {
