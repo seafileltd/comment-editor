@@ -10,6 +10,7 @@ const SeafileCommentEditor = ({
   pluginName = '', // sdoc or dtable or txt or py ...
   pluginEventBus,
   pluginEvent,
+  imageConfig,
 
   // Comment editor
   content,
@@ -45,6 +46,7 @@ const SeafileCommentEditor = ({
       pluginName={pluginName}
       pluginEventBus={pluginEventBus}
       pluginEvent={pluginEvent}
+      imageConfig={imageConfig}
       collaborators={collaborators}
       participants={participants}
       addParticipants={addParticipants}
@@ -72,6 +74,7 @@ SeafileCommentEditor.propTypes = {
   pluginName: PropTypes.string, // sdoc or dtable or txt or py ...
   pluginEventBus: PropTypes.object,
   pluginEvent: PropTypes.object,
+  imageConfig: PropTypes.object,
 
   // Comment editor
   content: PropTypes.any,

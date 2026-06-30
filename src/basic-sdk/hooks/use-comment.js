@@ -1,4 +1,5 @@
 import React, { useCallback, useContext } from 'react';
+import PropTypes from 'prop-types';
 import context from '../context';
 import { User } from '../model';
 
@@ -20,7 +21,8 @@ export const CommentProvider = ({
   pluginEvent,
   collaborators = [],
   participants = [],
-  addParticipants
+  addParticipants,
+  imageConfig = {},
 }) => {
 
   const getCollaborators = useCallback(() => {
@@ -36,7 +38,7 @@ export const CommentProvider = ({
   return (
     <CommentContext.Provider value={{
       type, userInfo: context.getUserInfo(), className,
-      pluginName, pluginEventBus, pluginEvent,
+      pluginName, pluginEventBus, pluginEvent, imageConfig,
       collaborators: getCollaborators(), participants: getParticipants(), addParticipants,
     }}>
       {children}
@@ -50,4 +52,17 @@ export const useComment = () => {
     throw new Error('\'CommentContext\' is null');
   }
   return { ...context };
+};
+
+CommentProvider.propTypes = {
+  children: PropTypes.node,
+  type: PropTypes.string,
+  className: PropTypes.string,
+  pluginName: PropTypes.string,
+  pluginEventBus: PropTypes.object,
+  pluginEvent: PropTypes.object,
+  collaborators: PropTypes.array,
+  participants: PropTypes.array,
+  addParticipants: PropTypes.func,
+  imageConfig: PropTypes.object,
 };
