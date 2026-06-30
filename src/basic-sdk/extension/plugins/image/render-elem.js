@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Transforms, Editor } from '@seafile/slate';
 import { ReactEditor, useSelected, useReadOnly } from '@seafile/slate-react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import imagePlaceholder from '../../../assets/images/image-placeholder.png';
 import { INTERNAL_EVENT } from '../../../constants';
+import { useComment } from '../../../hooks/use-comment';
 import { useScrollContext } from '../../../hooks/use-scroll-context';
 import EventBus from '../../../utils/event-bus';
 import { IMAGE_BLOCK } from '../../constants';
@@ -24,6 +26,8 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
   const nodeEntry = Editor.node(editor, [path[0]]);
   const imageStyle = { border: IMAGE_BORDER_TYPE.find((item) => item.type === border_type).value };
   const readOnly = useReadOnly();
+  const { imageConfig = {} } = useComment();
+  const { disableHoverMenu = false } = imageConfig;
   const imageRef = useRef(null);
   const resizerRef = useRef(null);
   const imageCaptionInputRef = useRef(null);
@@ -164,10 +168,10 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
     }
   }, []);
 
-  const onClickImage = useCallback((e) => {
+  const onClickImage = useCallback(() => {
     setPosition();
-    setIsShowImageHoverMenu(true);
-  }, [setPosition]);
+    if (!disableHoverMenu) setIsShowImageHoverMenu(true);
+  }, [disableHoverMenu, setPosition]);
 
   const reloadImage = useCallback(() => {
     if (imageRef.current) {
@@ -323,6 +327,16 @@ const Image = ({ element, editor, style, className, attributes, children, isSele
 };
 
 const SdocImage = Image;
+
+SdocImage.propTypes = {
+  element: PropTypes.object,
+  editor: PropTypes.object,
+  style: PropTypes.object,
+  className: PropTypes.string,
+  attributes: PropTypes.object,
+  children: PropTypes.node,
+  isSelected: PropTypes.bool,
+};
 
 export function renderImage(props, editor) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
