@@ -167,5 +167,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
   }
 }
