@@ -20,6 +20,7 @@ import { ScrollContext } from '../hooks/use-scroll-context';
 import withNodeId from '../node-id';
 import mdStringToSlate from '../slate-convert/md-to-slate';
 import slateToMdString from '../slate-convert/slate-to-md';
+import { hasCommentContent } from '../utils/document-utils';
 import EventBus from '../utils/event-bus';
 import EventProxy from '../utils/event-handler';
 
@@ -76,11 +77,13 @@ const CommentEditor = ({
 
   const onSubmit = useCallback((event) => {
     event && event.stopPropagation();
+    if (!hasCommentContent(editor.children)) return;
 
     const mdString = slateToMdString(editor.children);
     if (mdString && mdString.trim()) insertContent(mdString);
 
     editor.children = [generateEmptyElement(PARAGRAPH, { placeholder })];
+    setSlateValue(editor.children);
     Transforms.select(editor, Editor.start(editor, []));
 
     onContentChange && onContentChange(null);
@@ -133,6 +136,7 @@ const CommentEditor = ({
   useEffect(() => {
     let children = mdStringToSlate(content);
     editor.children = children;
+    setSlateValue(children);
     Transforms.select(editor, Editor.end(editor, []));
   }, [editor, content]);
 

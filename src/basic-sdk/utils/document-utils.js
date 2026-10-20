@@ -1,8 +1,17 @@
 import deepCopy from 'deep-copy';
 import context from '../context';
-import { CLIPBOARD_ORIGIN_SDOC_KEY, LINK } from '../extension/constants';
+import { CLIPBOARD_ORIGIN_SDOC_KEY, IMAGE, LINK, MENTION_TEMP } from '../extension/constants';
 import { generateDefaultText } from '../extension/core/utils/index';
 import ObjectUtils from './object-utils';
+
+const hasText = (value) => typeof value === 'string' && value.replace(/\p{Default_Ignorable_Code_Point}/gu, '').trim().length > 0;
+
+export const hasCommentContent = (nodes) => nodes.some((node) => {
+  if (node.type === IMAGE) return hasText(node.data?.src);
+  if (node.type === MENTION_TEMP) return false;
+  if (typeof node.text === 'string') return hasText(node.text);
+  return Array.isArray(node.children) && hasCommentContent(node.children);
+});
 
 export const normalizeChildren = (children) => {
   // text
