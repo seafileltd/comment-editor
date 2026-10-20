@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import classNames from 'classnames';
 import Tooltip from '../../../../components/tooltip';
+import { hasCommentContent } from '../../../../utils/document-utils';
 
 import './style.css';
 
-const PostCommentBtn = ({ onSubmit, submitBtnText, onCancel }) => {
+const PostCommentBtn = ({ editor, onSubmit, submitBtnText, onCancel }) => {
+  const disabled = !hasCommentContent(editor.children);
 
   useEffect(() => {
     document.addEventListener('keydown', onCancel, false);
@@ -15,8 +18,8 @@ const PostCommentBtn = ({ onSubmit, submitBtnText, onCancel }) => {
   }, [onCancel]);
 
   return (
-    <div role="button" id='comment-editor-comment-btn'>
-      <i className="sdocfont sdoc-save sdoc-comment-btn" onClick={onSubmit} ></i>
+    <div role="button" id='comment-editor-comment-btn' aria-disabled={disabled}>
+      <i className={classNames('sdocfont sdoc-save sdoc-comment-btn', { disabled })} onClick={disabled ? () => {} : onSubmit} ></i>
       <Tooltip target="comment-editor-comment-btn" >
         {submitBtnText}
       </Tooltip>

@@ -5,3 +5,10 @@
 .sdoc-comment-btn:hover {
   color: #d47604;
 }
+
+.comment-editor-toolbar .sdoc-comment-btn.disabled,
+.comment-editor-toolbar .sdoc-comment-btn.disabled:hover {
+  color: #ff8e03;
+  opacity: .65;
+  cursor: default;
+}
