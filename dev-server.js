@@ -1,15 +1,15 @@
-const axios = require('axios');
 const path = require('path');
 const Koa = require('koa');
-const send = require('koa-send');
 const Router = require('koa-router');
+const send = require('koa-send');
+const cors = require('koa2-cors');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const webpackConfig = require('./webpack/config.dev');
 const config = require('./config');
 const { version } = require('./package.json');
 const ejs = require('./scripts/ejs');
-const cors = require('koa2-cors');
+const proxyWebpack = require('./scripts/proxy-webpack');
+const webpackConfig = require('./webpack/config.dev');
 
 // error handle
 process.on('unhandledRejection', err => {
@@ -78,7 +78,7 @@ router.get('/images/*', async ctx => {
 // dev code proxy: webpack packaged file
 router.get(config.dev.scriptPath, async (ctx, next) => {
   // console.log(ctx.url)
-  let url = ctx.url.split('/');
+  let url = ctx.path.split('/');
   url = url[url.length - 1];
   if (
     url.indexOf('simple-editor') > -1 ||
@@ -89,24 +89,14 @@ router.get(config.dev.scriptPath, async (ctx, next) => {
   } else if (url.endsWith('.Form') || url.endsWith('.List')) {
     await next();
   } else {
-    const options = {
-      url: `http://127.0.0.1:${config.dev.webpackPort}/${url}`,
-      method: 'GET',
-    };
-    const result = await axios(options);
-    ctx.body = result.data;
+    await proxyWebpack(ctx, config.dev.webpackPort);
   }
 });
 
 // react-hot-loader proxy
 router.get('/*.hot-update.json?', async ctx => {
-  const options = {
-    url: `http://127.0.0.1:${config.dev.webpackPort}/${ctx.url}`,
-    method: 'GET',
-  };
   ctx.set('Access-Control-Allow-Origin', '*');
-  const result = await axios(options);
-  ctx.body = result.data;
+  await proxyWebpack(ctx, config.dev.webpackPort);
 });
 
 router.get('/*', async ctx => {
