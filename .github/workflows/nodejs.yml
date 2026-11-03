@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
     strategy:
       matrix:
         node-version: [20.x, 24.x]
@@ -20,6 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Use NPM Token with organization read access
+        if: env.NPM_TOKEN != ''
         uses: dkershner6/use-npm-token-action@v1
         with:
           token: "${{ secrets.NPM_TOKEN }}"
