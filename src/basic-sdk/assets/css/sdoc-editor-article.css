@@ -6,6 +6,8 @@
   border: 1px solid #e5e6e8;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
   font-size: 11pt;
+  position: relative;
+  overflow: auto;
 }
 
 .sdoc-editor__article>div {
