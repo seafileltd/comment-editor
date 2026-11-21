@@ -1,5 +1,6 @@
 .sdoc-content-wrapper {
   width: 100%;
-  height: calc(100vh - 44px);
+  flex: 1;
   display: flex;
+  background: #f5f5f5;
 }
