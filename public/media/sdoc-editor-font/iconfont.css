@@ -1,11 +1,11 @@
 @font-face {
   font-family: "sdocfont"; /* Project id 5078528 */
-  src: url('iconfont.eot?t=1764992123473'); /* IE9 */
-  src: url('iconfont.eot?t=1764992123473#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('iconfont.woff2?t=1764992123473') format('woff2'),
-       url('iconfont.woff?t=1764992123473') format('woff'),
-       url('iconfont.ttf?t=1764992123473') format('truetype'),
-       url('iconfont.svg?t=1764992123473#sdocfont') format('svg');
+  src: url('iconfont.eot?t=1775713977125'); /* IE9 */
+  src: url('iconfont.eot?t=1775713977125#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1775713977125') format('woff2'),
+       url('iconfont.woff?t=1775713977125') format('woff'),
+       url('iconfont.ttf?t=1775713977125') format('truetype'),
+       url('iconfont.svg?t=1775713977125#sdocfont') format('svg');
 }
 
 .sdocfont {
@@ -14,6 +14,118 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.sdoc-wiki-files:before {
+  content: "\e60b";
+}
+
+.sdoc-wiki-file:before {
+  content: "\e60a";
+}
+
+.sdoc-divider:before {
+  content: "\e609";
+}
+
+.sdoc-embed-link:before {
+  content: "\e608";
+}
+
+.sdoc-mark-as-resolved:before {
+  content: "\e6fe";
+}
+
+.sdoc-toggle-header3:before {
+  content: "\e602";
+}
+
+.sdoc-toggle-header5:before {
+  content: "\e603";
+}
+
+.sdoc-toggle-header6:before {
+  content: "\e604";
+}
+
+.sdoc-toggle-header2:before {
+  content: "\e605";
+}
+
+.sdoc-toggle-header1:before {
+  content: "\e606";
+}
+
+.sdoc-toggle-header4:before {
+  content: "\e607";
+}
+
+.sdoc-formula:before {
+  content: "\e6fd";
+}
+
+.sdoc-comment-quote:before {
+  content: "\e6fc";
+}
+
+.sdoc-arrow-right:before {
+  content: "\e6f9";
+}
+
+.sdoc-arrow-left:before {
+  content: "\e6fb";
+}
+
+.sdoc-arrow-up:before {
+  content: "\e6fa";
+}
+
+.sdoc-folder:before {
+  content: "\e6f8";
+}
+
+.sdoc-comments:before {
+  content: "\e6e8";
+}
+
+.sdoc-arrow-down:before {
+  content: "\e6f2";
+}
+
+.sdoc-presentation:before {
+  content: "\e6c1";
+}
+
+.sdoc-sm-close:before {
+  content: "\e6f7";
+}
+
+.sdoc-filter1:before {
+  content: "\e6ea";
+}
+
+.sdoc-sort:before {
+  content: "\e6f6";
+}
+
+.sdoc-jump-to:before {
+  content: "\e6f5";
+}
+
+.sdoc-subscripts:before {
+  content: "\e6e3";
+}
+
+.sdoc-superscripts:before {
+  content: "\e6e5";
+}
+
+.sdoc-reduce-font-size:before {
+  content: "\e6f3";
+}
+
+.sdoc-increase-font-size:before {
+  content: "\e6f4";
 }
 
 .sdoc-revise:before {
@@ -52,14 +164,6 @@
   content: "\e6ed";
 }
 
-.sdoc-comments:before {
-  content: "\e6e8";
-}
-
-.sdoc-sm-close:before {
-  content: "\e6ea";
-}
-
 .sdoc-more:before {
   content: "\e6e9";
 }
@@ -88,19 +192,11 @@
   content: "\e6e2";
 }
 
-.sdoc-superscripts:before {
-  content: "\e6e3";
-}
-
 .sdoc-strikethrough:before {
   content: "\e6e4";
 }
 
-.sdoc-subscripts:before {
-  content: "\e6e5";
-}
-
-.sdoc-Transform-to:before {
+.sdoc-transform-to:before {
   content: "\e6e6";
 }
 
@@ -154,10 +250,6 @@
 
 .sdoc-unstarred:before {
   content: "\e6c0";
-}
-
-.sdoc-presentation:before {
-  content: "\e6c1";
 }
 
 .sdoc-left-slide:before {
@@ -244,10 +336,6 @@
   content: "\e6ad";
 }
 
-.sdoc-increase-font-size:before {
-  content: "\e6ae";
-}
-
 .sdoc-code-block:before {
   content: "\e6af";
 }
@@ -318,14 +406,6 @@
 
 .sdoc-list-ol:before {
   content: "\e68d";
-}
-
-.sdoc-jump-to:before {
-  content: "\e69a";
-}
-
-.sdoc-reduce-font-size:before {
-  content: "\e69b";
 }
 
 .sdoc-all-read:before {
@@ -410,10 +490,6 @@
 
 .sdoc-copy:before {
   content: "\e695";
-}
-
-.sdoc-filter1:before {
-  content: "\e68f";
 }
 
 .sdoc-exclamation-circle:before {
