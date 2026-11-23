@@ -145,14 +145,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seafileltd/sdoc-editor.git"
+    "url": "git+https://github.com/seafileltd/comment-editor.git"
   },
   "author": "Seafile Ltd",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/seafileltd/sdoc-editor/issues"
+    "url": "https://github.com/seafileltd/comment-editor/issues"
   },
-  "homepage": "https://github.com/seafileltd/sdoc-editor#readme",
+  "homepage": "https://github.com/seafileltd/comment-editor#readme",
   "browserslist": {
     "production": [
       ">0.2%",
