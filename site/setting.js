@@ -2,36 +2,39 @@
 let config = {
   serviceUrl: '', // required
   name: '**', // required, current user's name
-  username: '**', // required
-  password: '**', // required
+  username: '',
+  password: '',
   avatarURL: '**', // required, current user's avatar_url
   contact_email: '**',
   lib_name: '**',
   repoID: '', // required
   dirPath: '/', // required
-  docPath: '', // required
-  docName: '', // required
-  docUuid: '', // required
   sdocServer: '', // required
   accessToken: '', // required
+  docName: '',
+  docPath: '',
+  docUuid: '',
+  fileName: '',
+  filePath: '',
+  fileUuid: '', // Takes precedence over filePath for file comments.
+  apiToken: '', // Leave empty to log in with username and password.
   isDevelopment: true,
   isOpenSocket: false,
   lang: 'en',
-  assetsUrl: '', // required
+  assetsUrl: '', // Optional prefix for SDoc image paths.
   isShowInternalLink: false, // required
   isStarIconShown: false // for star/unstar sdoc
 };
 
-/** (2/4) load local development settings ./setting.local.js (if exist) */
+/** (2/4) load local development settings */
 try {
-  config.local = require('./setting.local.js').default || {};
-  config = { ...config, ...{ loadVerbose: true }, ...config.local };
-  config.loadVerbose && console.log('[SeaTable Plugin Development] Configuration merged with "./src/setting.local.js" (this message can be disabled by adding `loadVerbose: false` to the local development settings)');
-  delete config.local;
+  const localConfig = require('./setting.local.js').default || {};
+  config = { ...config, loadVerbose: true, ...localConfig };
+  config.loadVerbose && console.log('[SeaTable Plugin Development] Configuration merged with local settings (this message can be disabled by adding `loadVerbose: false` to the local development settings)');
   delete config.loadVerbose;
 } catch (error) {
   // fall-through by intention
-  console.error('[SeaTable Plugin Development] Please create "./src/setting.local.js" (from `setting.local.dist.js`)');
+  console.error('[SeaTable Plugin Development] Please copy "site/setting.md.local.js" or "site/setting.sdoc.local.js" to "site/setting.local.js"');
   throw error;
 }
 

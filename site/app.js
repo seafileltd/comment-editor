@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { SeafileCommentEditor } from '../src/index';
 import Loading from './commons/loading';
+import CommentEditorPage from './pages/comment-editor';
 import Home from './pages/home';
 
 class App extends React.Component {
@@ -15,19 +15,6 @@ class App extends React.Component {
 
   async componentDidMount() {
     this.setState({ isLoading: false });
-
-    this.commentEditorProps = {
-      pluginName: 'sdoc',
-      className: 'custom-editor-wrapper',
-
-      type: 'comment',
-      commentContent: '',
-      hiddenUserInfo: true,
-      insertContent: () => {},
-      hiddenComment: () => {},
-      onContentChange: () => {},
-      api: {},
-    };
   }
 
   render() {
@@ -37,14 +24,8 @@ class App extends React.Component {
     return (
       <Routes primary={false} style={{ display: 'flex', width: '100%', height: '100%' }}>
         <Route path='/' element={<Home />}/>
-        <Route path='/comment-editor' element={(
-          <div style={{ display: 'flex', width: '100%', height: '100%' }}>
-            <div style={{ background: '#f5f5f5', width: '70%' }}></div>
-            <div style={{ marginTop: '16px', padding: '0 16px', flex: 1 }}>
-              <SeafileCommentEditor {...this.commentEditorProps} />
-            </div>
-          </div>
-        )}/>
+        <Route path='/sdoc-comment-editor' element={<CommentEditorPage key="sdoc" scenario="sdoc" />}/>
+        <Route path='/md-comment-editor' element={<CommentEditorPage key="md" scenario="md" />}/>
       </Routes>
     );
   }
